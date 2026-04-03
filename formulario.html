@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<!--
+  Formulário de adoção. Opcional: formulario.html?animalId=1 para vincular ao animal.
+  Ao enviar: validação client-side, salvamento em localStorage e mensagem de confirmação.
+  Termo de responsabilidade em modal. Próximo passo: POST /api/adoptions no backend.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulário de Adoção – Adote um Amigo</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="prototype-banner" role="status" aria-live="polite">
+    Protótipo — sem backend. Sistema de login e dados salvos no navegador; para produção é necessária autenticação server-side e banco de dados.
+  </div>
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" aria-label="Ir para página inicial">Adote um Amigo</a>
+      <nav class="nav" aria-label="Menu principal">
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="index.html#animais">Animais</a></li>
+          <li><a href="lost-pets.html">Animais Perdidos</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="doar.html">Doar</a></li>
+        </ul>
+      </nav>
+      <a href="index.html#animais" class="btn btn-primary header-cta">Adotar agora</a>
+      <button type="button" class="menu-toggle" aria-label="Abrir menu" aria-expanded="false"></button>
+    </div>
+  </header>
+
+  <main class="main form-page">
+    <div class="form-wrapper">
+      <h1>Formulário de Adoção</h1>
+      <p id="form-animal-ref" class="form-animal-ref"></p>
+
+      <form id="form-adocao" class="form-adocao" novalidate>
+        <!-- Etapas (abas) do formulário -->
+        <nav class="form-steps" aria-label="Etapas do formulário">
+          <ol>
+            <li class="form-step-indicator ativo" data-step-indicator="1">
+              <span class="step-badge" aria-hidden="true">1</span>
+              <span class="step-text">Dados pessoais</span>
+            </li>
+            <li class="form-step-indicator" data-step-indicator="2">
+              <span class="step-badge" aria-hidden="true">2</span>
+              <span class="step-text">Endereço e residência</span>
+            </li>
+            <li class="form-step-indicator" data-step-indicator="3">
+              <span class="step-badge" aria-hidden="true">3</span>
+              <span class="step-text">Formulário</span>
+            </li>
+          </ol>
+        </nav>
+
+        <!-- ETAPA 1: Dados pessoais -->
+        <section class="form-step" data-step="1">
+        <fieldset class="form-section">
+          <legend>Dados pessoais</legend>
+          <div class="form-row">
+            <label for="nome">Nome completo</label>
+            <input type="text" id="nome" name="nome" autocomplete="name">
+          </div>
+          <div class="form-row">
+            <label for="cpf">CPF</label>
+            <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" maxlength="14">
+          </div>
+          <div class="form-row">
+            <label for="nascimento">Data de nascimento</label>
+            <input type="date" id="nascimento" name="nascimento">
+          </div>
+          <div class="form-row">
+            <label for="telefone">Telefone</label>
+            <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999">
+          </div>
+          <div class="form-row">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" autocomplete="email">
+          </div>
+        </fieldset>
+        <div class="form-actions wizard-actions">
+          <button type="button" class="btn btn-primary btn-lg" id="btn-proximo-etapa">Próximo</button>
+        </div>
+        </section>
+
+        <!-- ETAPA 2: Endereço e residência -->
+        <section class="form-step" data-step="2" hidden>
+        <fieldset class="form-section">
+          <legend>Endereço</legend>
+          <div class="form-row">
+            <label for="endereco">Endereço completo</label>
+            <textarea id="endereco" name="endereco" rows="3" placeholder="Rua, número, complemento, bairro, cidade, CEP"></textarea>
+          </div>
+        </fieldset>
+        <fieldset class="form-section">
+          <legend>Residência</legend>
+          <div class="form-row">
+            <span class="label">Moradia</span>
+            <div class="radio-group">
+              <label class="radio-label">
+                <input type="radio" name="moradia" value="Proprio"> Próprio
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="moradia" value="Alugado"> Alugado
+              </label>
+            </div>
+          </div>
+          <div class="form-row alugado-extra" id="row-proprietario" hidden>
+            <label for="proprietario-permite">Proprietário permite animais?</label>
+            <div class="radio-group">
+              <label class="radio-label"><input type="radio" name="proprietario_permite" value="sim"> Sim</label>
+              <label class="radio-label"><input type="radio" name="proprietario_permite" value="nao_sei"> Não sei</label>
+              <label class="radio-label"><input type="radio" name="proprietario_permite" value="nao"> Não</label>
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="tipo-moradia">Tipo de moradia</label>
+            <select id="tipo-moradia" name="tipo_moradia">
+              <option value="">Selecione</option>
+              <option value="Casa aberta">Casa aberta</option>
+              <option value="Casa fechada">Casa fechada</option>
+              <option value="Apartamento com telas">Apartamento com telas</option>
+              <option value="Apartamento sem telas">Apartamento sem telas</option>
+              <option value="Cobertura com telas">Cobertura com telas</option>
+              <option value="Cobertura sem telas">Cobertura sem telas</option>
+              <option value="Térreo com área externa">Térreo com área externa</option>
+              <option value="Térreo sem área externa">Térreo sem área externa</option>
+            </select>
+          </div>
+        </fieldset>
+        <div class="form-actions wizard-actions wizard-actions-split">
+          <button type="button" class="btn btn-secondary" id="btn-voltar-etapa">Voltar</button>
+          <button type="button" class="btn btn-primary btn-lg" id="btn-proximo-etapa-2">Próximo</button>
+        </div>
+        </section>
+
+        <!-- ETAPA 3: Perguntas e termo -->
+        <section class="form-step" data-step="3" hidden>
+        <!-- Ambiente familiar -->
+        <fieldset class="form-section">
+          <legend>Ambiente familiar</legend>
+          <div class="form-row">
+            <span class="label">Há crianças em casa?</span>
+            <div class="radio-group">
+              <label class="radio-label"><input type="radio" name="criancas" value="sim"> Sim</label>
+              <label class="radio-label"><input type="radio" name="criancas" value="nao"> Não</label>
+            </div>
+          </div>
+          <div class="form-row">
+            <span class="label">Todos em casa concordam com a adoção?</span>
+            <div class="radio-group">
+              <label class="radio-label"><input type="radio" name="todos_concordam" value="sim"> Sim</label>
+              <label class="radio-label"><input type="radio" name="todos_concordam" value="nao"> Não</label>
+            </div>
+          </div>
+          <div class="form-row">
+            <span class="label">O pet é presente para alguém?</span>
+            <div class="radio-group">
+              <label class="radio-label"><input type="radio" name="pet_presente" value="sim"> Sim</label>
+              <label class="radio-label"><input type="radio" name="pet_presente" value="nao"> Não</label>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Experiência com pets -->
+        <fieldset class="form-section">
+          <legend>Experiência com pets</legend>
+          <div class="form-row">
+            <span class="label">Possui pet agora?</span>
+            <div class="checkbox-group">
+              <label class="checkbox-label"><input type="checkbox" name="pet_agora" value="Cachorro"> Cachorro</label>
+              <label class="checkbox-label"><input type="checkbox" name="pet_agora" value="Gato"> Gato</label>
+              <label class="checkbox-label"><input type="checkbox" name="pet_agora" value="Outros"> Outros</label>
+              <label class="checkbox-label"><input type="checkbox" name="pet_agora" value="Nenhum" id="pet_nenhum"> Nenhum</label>
+            </div>
+          </div>
+          <div class="form-row" id="row-ja-teve" hidden>
+            <span class="label">Já teve pet antes?</span>
+            <div class="radio-group">
+              <label class="radio-label"><input type="radio" name="ja_teve_pet" value="sim"> Sim</label>
+              <label class="radio-label"><input type="radio" name="ja_teve_pet" value="nao"> Não</label>
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="alergia">Alguém da casa possui alergia?</label>
+            <select id="alergia" name="alergia">
+              <option value="">Selecione</option>
+              <option value="A gatos">A gatos</option>
+              <option value="A cachorros">A cachorros</option>
+              <option value="A ambos">A ambos</option>
+              <option value="Não">Não</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <!-- Termo e compromissos -->
+        <fieldset class="form-section">
+          <legend>Termo de responsabilidade</legend>
+          <div class="form-row termo-row">
+            <input type="checkbox" id="termo-aceito" name="termo_aceito" class="checkbox-termo" aria-describedby="termo-desc">
+            <div class="termo-label-wrap" id="termo-desc">
+              <label for="termo-aceito" class="checkbox-label checkbox-termo-label">Li e aceito o termo de responsabilidade</label>
+              <p class="termo-acao">Leia o termo e clique em &quot;Aceito&quot; no pop-up para marcar esta opção, ou <button type="button" class="link-button" id="abrir-termo" aria-haspopup="dialog">abrir termo de responsabilidade</button>.</p>
+            </div>
+          </div>
+          <div class="form-row">
+            <label class="checkbox-label">
+              <input type="checkbox" id="entrevista-vistoria" name="entrevista_vistoria">
+              Concordo com entrevista presencial e eventual vistoria no meu endereço.            </label>
+          </div>
+        </fieldset>
+
+        <div class="form-actions wizard-actions wizard-actions-split">
+          <button type="button" class="btn btn-secondary" id="btn-voltar-etapa">Voltar</button>
+          <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
+        </div>
+        </section>
+      </form>
+    </div>
+
+    <!-- Modal do termo -->
+    <div id="modal-termo" class="modal" role="dialog" aria-labelledby="modal-termo-titulo" aria-modal="true" hidden>
+      <div class="modal-backdrop"></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="modal-termo-titulo">Termo de responsabilidade</h2>
+        </div>
+        <div class="modal-body termo-texto">
+          <p>Ao adotar um animal por meio desta ONG, você se compromete a:</p>
+          <ul>
+            <li>Fornecer cuidados adequados (alimentação, saúde, vacinas e bem-estar) pelo resto da vida do animal.</li>
+            <li>Em caso de impossibilidade de continuar com os cuidados, devolver o animal à ONG e não abandoná-lo.</li>
+            <li>Permitir visita ou vistoria pela ONG, quando solicitado, para conferir se as informações do formulário correspondem à realidade.</li>
+            <li>Assumir total responsabilidade civil por danos que o animal venha a causar a terceiros.</li>
+            <li>Pagar a taxa de adoção informada pela ONG, que cobre custos de castração, vacinas e cuidados prévios.</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <!-- Checkbox (o “botão de check”) para confirmar que leu o termo -->
+          <label class="checkbox-label modal-termo-check">
+            <input type="checkbox" id="modal-termo-aceito">
+            Li e aceito o termo
+          </label>
+          <div class="modal-termo-acoes">
+            <p id="modal-termo-aviso" class="modal-termo-aviso" hidden>Marque o checkbox para continuar.</p>
+            <button type="button" class="btn btn-primary" id="btn-aceito-termo">Aceito</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Área de confirmação (exibida após envio) -->
+    <div id="confirmacao-envio" class="confirmacao-envio" hidden>
+      <h2>Obrigado!</h2>
+      <p>Em até 48 horas a ONG entrará em contato.</p>
+      <div id="resumo-envio" class="resumo-envio"></div>
+      <a href="index.html" class="btn btn-primary">Voltar ao início</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h3>Adote um Amigo</h3>
+        <p>ONG fictícia – protótipo.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <p>E-mail: contato@adoteumamigo.org.br</p>
+      </div>
+    </div>
+    <p class="footer-copy">&copy; Protótipo – Plataforma de Adoção de Animais (PIBEC)</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof initFormPage === 'function') initFormPage();
+    });
+  </script>
+</body>
+</html>

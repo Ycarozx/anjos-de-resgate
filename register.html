@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro</title>
+</head>
+<body>
+
+<h2>Cadastro</h2>
+
+<form onsubmit="fazerCadastro(event)">
+  <input type="text" id="nome" placeholder="Nome completo" required>
+  <input type="email" id="email" placeholder="Email" required>
+  <input type="password" id="senha" placeholder="Senha" required>
+  <button type="submit">Cadastrar</button>
+</form>
+
+<script>
+const API_URL = "http://127.0.0.1:5000";
+
+async function fazerCadastro(e) {
+  e.preventDefault();
+
+  const nome = document.getElementById("nome").value;
+  const email = document.getElementById("email").value;
+  const senha = document.getElementById("senha").value;
+
+  const res = await fetch(API_URL + "/register", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ nome, email, senha })
+  });
+
+  const data = await res.json();
+
+  if (data.success) {
+    alert("Cadastro realizado!");
+    window.location.href = "login.html";
+  } else {
+    alert(data.message || "Erro no cadastro");
+  }
+}
+</script>
+
+</body>
+</html>

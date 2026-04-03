@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrar Animal Perdido / Achado – Anjos de Resgate</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="form-page">
+  <div class="prototype-banner" role="status" aria-live="polite">
+    Protótipo — sem backend. Os registros de animais perdidos/achados são salvos apenas no navegador (localStorage).
+  </div>
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" aria-label="Ir para página inicial">
+        <img src="assets/anjos-logo.png" alt="Associação Anjos de Resgate" class="logo-img">
+        <span class="logo-text">Anjos de Resgate</span>
+      </a>
+      <nav class="nav" aria-label="Menu principal">
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="index.html#animais">Animais</a></li>
+          <li><a href="lost-pets.html">Animais Perdidos</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="doar.html">Doar</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a href="lost-pets.html" class="btn btn-secondary header-cta">Ver registros</a>
+      </div>
+      <button type="button" class="menu-toggle" aria-label="Abrir menu" aria-expanded="false"></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="section form-wrapper">
+      <h1>Registrar Animal Perdido / Achado</h1>
+      <p class="muted small">
+        Todas as submissões serão <strong>moderadas</strong> antes de aparecerem publicamente na página de animais perdidos/achados.
+        Use este formulário para relatar um animal que você perdeu ou encontrou.
+      </p>
+
+      <form id="lost-pet-form" class="form-adocao" novalidate>
+        <fieldset class="form-section">
+          <legend>Tipo de registro</legend>
+          <div class="form-row">
+            <div class="radio-group">
+              <label class="radio-label">
+                <input type="radio" name="type" value="lost" required>
+                Animal perdido
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="type" value="found" required>
+                Animal encontrado
+              </label>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section">
+          <legend>Sobre o animal</legend>
+          <div class="form-row">
+            <label for="lost-name">Nome do animal <span class="muted small">(opcional)</span></label>
+            <input id="lost-name" name="name" type="text" placeholder="Ex: Nina">
+          </div>
+
+          <div class="form-row">
+            <label for="lost-species-select">Espécie</label>
+            <select id="lost-species-select" name="species" required>
+              <option value="">Selecione</option>
+              <option value="Cachorro">Cachorro</option>
+              <option value="Gato">Gato</option>
+              <option value="Ave">Ave</option>
+              <option value="Réptil">Réptil</option>
+              <option value="Roedor">Roedor</option>
+              <option value="Equino">Equino</option>
+              <option value="Bovino">Bovino</option>
+              <option value="Caprino">Caprino</option>
+              <option value="Coelho">Coelho</option>
+              <option value="Outros">Outros</option>
+            </select>
+          </div>
+
+          <div class="form-row" id="row-species-other" hidden>
+            <label for="lost-species-other">Especifique a espécie</label>
+            <input id="lost-species-other" name="species_other" type="text" placeholder="Ex: Iguana, porquinho-da-índia...">
+          </div>
+
+          <div class="form-row">
+            <label for="lost-breed">Raça <span class="muted small">(opcional)</span></label>
+            <input id="lost-breed" name="breed" type="text" placeholder="Ex: SRD, Siamês, Pastor Alemão">
+          </div>
+
+          <div class="form-row">
+            <label for="lost-age">Idade aproximada</label>
+            <input id="lost-age" name="age" type="text" required placeholder="Ex: Filhote, 2 anos, Adulto">
+          </div>
+
+          <div class="form-row">
+            <label for="lost-color">Cor / Marcas distintivas</label>
+            <input id="lost-color" name="color" type="text" required placeholder="Ex: Caramelo com mancha branca no peito">
+          </div>
+
+          <div class="form-row">
+            <label for="lost-gender">Sexo</label>
+            <select id="lost-gender" name="gender" required>
+              <option value="">Selecione</option>
+              <option value="Macho">Macho</option>
+              <option value="Fêmea">Fêmea</option>
+              <option value="Desconhecido">Desconhecido</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label for="lost-size">Porte / Tamanho</label>
+            <input id="lost-size" name="size" type="text" required placeholder="Ex: Pequeno, Médio, Grande, 30 cm de altura">
+          </div>
+
+          <div class="form-row inline-checks">
+            <label class="checkbox-label">
+              <input type="checkbox" id="has-microchip">
+              Possui microchip / identificação
+            </label>
+          </div>
+          <div class="form-row" id="row-microchip" hidden>
+            <label for="lost-microchip">Número do microchip / identificação</label>
+            <input id="lost-microchip" name="microchip" type="text" placeholder="Ex: BR-123-456-XYZ">
+          </div>
+
+          <div class="form-row">
+            <label for="lost-description">Observações adicionais / descrição completa</label>
+            <textarea id="lost-description" name="description" rows="4" required placeholder="Conte o que aconteceu, comportamento do animal, se toma medicação, etc."></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section">
+          <legend>Local e data</legend>
+          <div class="form-row">
+            <label for="lost-city">Cidade</label>
+            <input id="lost-city" name="city" type="text" required>
+          </div>
+          <div class="form-row">
+            <label for="lost-neighborhood">Bairro</label>
+            <input id="lost-neighborhood" name="neighborhood" type="text" required>
+          </div>
+          <div class="form-row">
+            <label for="lost-reference">Referência (rua, ponto conhecido, etc.)</label>
+            <input id="lost-reference" name="reference" type="text" placeholder="Ex: Próximo à praça central, perto do mercado X">
+          </div>
+
+          <div class="form-row">
+            <label>Coordenadas (opcional)</label>
+            <div class="inline-checks">
+              <input type="text" id="lost-lat" name="lat" class="admin-input" placeholder="Latitude" style="max-width: 150px;">
+              <input type="text" id="lost-lng" name="lng" class="admin-input" placeholder="Longitude" style="max-width: 150px;">
+              <button type="button" id="btn-use-location" class="btn btn-secondary btn-small">Usar minha localização</button>
+            </div>
+            <p class="muted small">
+              Em produção, a geolocalização seria pedida via <code>navigator.geolocation</code> com consentimento do usuário.
+            </p>
+          </div>
+
+          <div class="form-row">
+            <label for="lost-date">Data do desaparecimento / encontro</label>
+            <input id="lost-date" name="lost_date" type="date" required>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section">
+          <legend>Fotos</legend>
+          <div class="form-row">
+            <label for="lost-photo-url">URL da foto principal</label>
+            <input id="lost-photo-url" name="photo_url" type="url" placeholder="https://...">
+          </div>
+          <div class="form-row">
+            <label for="lost-photo-upload">Ou envie uma foto (protótipo)</label>
+            <input id="lost-photo-upload" name="photo_file" type="file" accept="image/*">
+            <p class="muted small">
+              No protótipo, a imagem é convertida para <code>DataURL</code> e armazenada no <code>localStorage</code>.
+              Em produção, use upload para storage (ex.: S3) e salve apenas a URL.
+            </p>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section">
+          <legend>Contato</legend>
+          <div class="form-row">
+            <label for="owner-name">Seu nome</label>
+            <input id="owner-name" name="owner_name" type="text" required>
+          </div>
+          <div class="form-row">
+            <label for="owner-phone">Telefone</label>
+            <input id="owner-phone" name="contact_phone" type="tel" required placeholder="(DDD) 99999-9999">
+          </div>
+          <div class="form-row">
+            <label for="owner-email">E-mail</label>
+            <input id="owner-email" name="contact_email" type="email" required>
+          </div>
+        </fieldset>
+
+        <div class="form-actions wizard-actions-split">
+          <button type="submit" class="btn btn-primary">Enviar para avaliação</button>
+          <a href="lost-pets.html" class="btn btn-secondary">Ver animais perdidos / achados</a>
+        </div>
+      </form>
+    </section>
+
+    <section id="lost-pet-confirmation" class="section confirmacao-envio" hidden>
+      <h2>Registro recebido!</h2>
+      <p>
+        Seu registro foi salvo como <strong>pendente de moderação</strong>. Em até algumas horas a equipe da ONG irá revisar
+        as informações e publicá-las na página de animais perdidos/achados.
+      </p>
+      <p class="muted small">
+        Este é um protótipo: os dados ficam apenas no navegador (localStorage). Em produção, seriam enviados para um backend
+        (por exemplo, Flask) por meio de <code>POST /api/lostpets</code>.
+      </p>
+      <a href="lost-pets.html" class="btn btn-primary">Ir para a lista de perdidos/achados</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer-copy">&copy; Protótipo – Módulo de Animais Perdidos / Achados</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (typeof initReportLostPetPage === 'function') initReportLostPetPage();
+    });
+  </script>
+</body>
+</html>
+

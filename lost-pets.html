@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animais Perdidos – Anjos de Resgate</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="prototype-banner" role="status" aria-live="polite">
+    Protótipo — sem backend. Registros de animais perdidos são salvos apenas no navegador (localStorage).
+  </div>
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" aria-label="Ir para página inicial">
+        <img src="assets/anjos-logo.png" alt="Associação Anjos de Resgate" class="logo-img">
+        <span class="logo-text">Anjos de Resgate</span>
+      </a>
+      <nav class="nav" aria-label="Menu principal">
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="index.html#animais">Animais</a></li>
+          <li><a href="lost-pets.html" aria-current="page">Animais Perdidos</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="doar.html">Doar</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a href="report-lost-pet.html" class="btn btn-primary header-cta">Registrar animal</a>
+      </div>
+      <button type="button" class="menu-toggle" aria-label="Abrir menu" aria-expanded="false"></button>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="section page-hero">
+      <h1 class="section-title">Animais Perdidos</h1>
+      <p class="muted small">
+        Veja animais que estão sendo procurados ou que foram encontrados na região. Para registrar um novo caso, use o formulário
+        <a href="report-lost-pet.html">“Registrar animal perdido/achado”</a>. Todas as submissões passam por moderação.
+      </p>
+    </section>
+
+    <section class="section">
+      <div class="filters-and-grid lost-pets-layout">
+        <aside class="filters-sidebar" aria-label="Filtros de animais perdidos">
+          <div class="filters-wrapper">
+            <div class="filter-group">
+              <label for="lost-search">Buscar por nome ou descrição</label>
+              <input type="search" id="lost-search" placeholder="Ex: cavalo, papagaio, coleira azul...">
+            </div>
+            <div class="filter-group">
+              <label for="lost-species">Espécie</label>
+              <select id="lost-species">
+                <option value="">Todas</option>
+                <option value="Cachorro">Cachorro</option>
+                <option value="Gato">Gato</option>
+                <option value="Ave">Ave</option>
+                <option value="Réptil">Réptil</option>
+                <option value="Roedor">Roedor</option>
+                <option value="Equino">Equino</option>
+                <option value="Bovino">Bovino</option>
+                <option value="Coelho">Coelho</option>
+                <option value="Outros">Outros</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="lost-city">Cidade</label>
+              <input type="text" id="lost-city" placeholder="Cidade">
+            </div>
+            <div class="filter-group">
+              <label for="lost-neighborhood">Bairro</label>
+              <input type="text" id="lost-neighborhood" placeholder="Bairro">
+            </div>
+            <div class="filter-group">
+              <label>Data do desaparecimento</label>
+              <div class="lost-date-range">
+                <input type="date" id="lost-date-from" aria-label="Data inicial">
+                <input type="date" id="lost-date-to" aria-label="Data final">
+              </div>
+            </div>
+            <div class="filter-group">
+              <label for="lost-status">Situação</label>
+              <select id="lost-status">
+                <option value="approved">Ativos (Animais Perdidos)</option>
+                <option value="found">Marcados como encontrados</option>
+                <option value="">Todos os aprovados</option>
+              </select>
+            </div>
+          </div>
+        </aside>
+
+        <div class="animais-area">
+          <div id="lost-pets-grid" class="grid-animais" role="list"></div>
+          <p id="lost-pets-empty" class="nenhum-resultado" hidden>
+            Nenhum registro encontrado com os filtros selecionados.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal de detalhes do animal perdido/achado -->
+  <div id="lost-pet-modal" class="modal" hidden aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-backdrop" data-lost-modal-close></div>
+    <div class="modal-content lost-pet-modal-content">
+      <header class="modal-header">
+        <h2 id="lost-pet-modal-title">Detalhes do registro</h2>
+        <button type="button" class="modal-close" data-lost-modal-close aria-label="Fechar detalhes"></button>
+      </header>
+      <div class="modal-body">
+        <div class="animal-content">
+          <section class="animal-gallery">
+            <div class="gallery-main">
+              <img id="lost-pet-main-img" class="gallery-main-img" src="" alt="">
+            </div>
+            <div id="lost-pet-thumbs" class="gallery-thumbs"></div>
+          </section>
+          <section class="animal-info">
+            <h1 id="lost-pet-name" class="animal-nome"></h1>
+            <ul class="animal-meta">
+              <li><span class="meta-label">Tipo:</span> <span id="lost-pet-type"></span></li>
+              <li><span class="meta-label">Espécie:</span> <span id="lost-pet-species"></span></li>
+              <li><span class="meta-label">Raça:</span> <span id="lost-pet-breed"></span></li>
+              <li><span class="meta-label">Cor / Marcas:</span> <span id="lost-pet-color"></span></li>
+              <li><span class="meta-label">Sexo:</span> <span id="lost-pet-gender"></span></li>
+              <li><span class="meta-label">Porte:</span> <span id="lost-pet-size"></span></li>
+              <li><span class="meta-label">Cidade/Bairro:</span> <span id="lost-pet-location"></span></li>
+              <li><span class="meta-label">Data do desaparecimento/encontro:</span> <span id="lost-pet-date"></span></li>
+              <li><span class="meta-label">Status:</span> <span id="lost-pet-status"></span></li>
+              <li><span class="meta-label">Microchip/ID:</span> <span id="lost-pet-microchip"></span></li>
+            </ul>
+            <section class="animal-historia">
+              <h2>Descrição</h2>
+              <p id="lost-pet-description"></p>
+            </section>
+            <section class="animal-historia">
+              <h2>Contato do responsável</h2>
+              <p><strong>Nome:</strong> <span id="lost-pet-owner"></span></p>
+              <p><strong>Telefone:</strong> <span id="lost-pet-phone"></span></p>
+              <p><strong>E-mail:</strong> <span id="lost-pet-email"></span></p>
+              <p class="muted small">Os dados aparecem parcialmente mascarados neste protótipo.</p>
+            </section>
+            <button type="button" class="btn btn-primary" id="btn-lost-pet-intent">
+              Tenho informações sobre este animal
+            </button>
+          </section>
+        </div>
+      </div>
+      <footer class="modal-footer">
+        <p class="muted small">
+          Este módulo é um protótipo. Em produção, o envio de informações seria registrado em backend e encaminhado à equipe.
+        </p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Modal de intenção (Tenho informações) -->
+  <div id="lost-pet-intent-modal" class="modal" hidden aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-backdrop" data-lost-intent-close></div>
+    <div class="modal-content">
+      <header class="modal-header">
+        <h2>Tenho informações</h2>
+        <button type="button" class="modal-close" data-lost-intent-close aria-label="Fechar"></button>
+      </header>
+      <div class="modal-body">
+        <form id="lost-pet-intent-form">
+          <div class="form-row">
+            <label for="intent-name">Seu nome</label>
+            <input type="text" id="intent-name" name="intent_name" required>
+          </div>
+          <div class="form-row">
+            <label for="intent-contact">Contato (telefone ou e-mail)</label>
+            <input type="text" id="intent-contact" name="intent_contact" required>
+          </div>
+          <div class="form-row">
+            <label for="intent-message">Mensagem</label>
+            <textarea id="intent-message" name="intent_message" rows="3" required></textarea>
+          </div>
+          <p class="muted small">
+            Em produção, esta informação seria enviada para o backend (ex.: <code>POST /api/lostpets/:id/intents</code>).
+          </p>
+        </form>
+      </div>
+      <footer class="modal-footer">
+        <div class="wizard-actions-split">
+          <button type="button" class="btn btn-secondary" data-lost-intent-close>Cancelar</button>
+          <button type="submit" form="lost-pet-intent-form" class="btn btn-primary">Enviar</button>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h3>Anjos de Resgate</h3>
+        <p>Associação de proteção animal.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Links</h4>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="index.html#animais">Animais para adoção</a></li>
+          <li><a href="report-lost-pet.html">Registrar animal perdido</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-copy">&copy; Protótipo – Módulo de Animais Perdidos</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (typeof initLostPetsPage === 'function') initLostPetsPage();
+    });
+  </script>
+</body>
+</html>
+

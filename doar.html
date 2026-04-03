@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<!--
+  doar.html
+  Página de doações (protótipo MVP) – sem backend.
+  - PIX: gera QR Code via Google Chart API (imagem) com um payload simples.
+  - Itens: lista pública do que a ONG precisa; usuário registra intenção de doação (localStorage).
+  - Moderadores: painel simplificado no rodapé aparece apenas quando logado como moderador.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doar – Adote um Amigo</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="prototype-banner" role="status" aria-live="polite">
+    Protótipo — sem backend. Sistema de login e dados salvos no navegador; para produção é necessária autenticação server-side e banco de dados.
+  </div>
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" aria-label="Ir para página inicial">Adote um Amigo</a>
+      <nav class="nav" aria-label="Menu principal">
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="index.html#animais">Animais</a></li>
+          <li><a href="lost-pets.html">Animais Perdidos</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="doar.html" aria-current="page">Doar</a></li>
+          <li class="nav-auth"><a href="index.html#animais" class="btn btn-primary btn-small">Adotar agora</a></li>
+          <li class="nav-auth"><a href="login.html" class="btn btn-secondary btn-small">Login</a></li>
+          <li class="nav-auth"><a href="register.html" class="btn btn-primary btn-small">Cadastro</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a href="index.html#animais" class="btn btn-primary header-cta">Adotar agora</a>
+        <a href="login.html" class="btn btn-secondary header-login">Login</a>
+        <a href="register.html" class="btn btn-outline header-register">Cadastro</a>
+      </div>
+      <button type="button" class="menu-toggle" aria-label="Abrir menu" aria-expanded="false"></button>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Hero inspirado no protótipo de referência -->
+    <section class="donation-hero" aria-label="Chamada para doações">
+      <div class="donation-hero-inner">
+        <div class="hero-heart" aria-hidden="true">♡</div>
+        <h1>Ajude a <span class="hero-accent">Adote um Amigo</span></h1>
+        <p>
+          Sua doação faz a diferença na vida de cães e gatos resgatados. Juntos, podemos dar amor,
+          cuidado e uma nova chance para eles.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <!-- Abas (tabs) – semelhante ao protótipo -->
+      <div class="donation-tabs" role="tablist" aria-label="Tipo de doação">
+        <button id="tab-money" class="donation-tab ativo" type="button" role="tab" aria-selected="true" aria-controls="panel-money">
+          <span class="tab-icon" aria-hidden="true">$</span>
+          Doação em Dinheiro
+        </button>
+        <button id="tab-items" class="donation-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-items">
+          <span class="tab-icon" aria-hidden="true">□</span>
+          Doação de Itens
+        </button>
+      </div>
+
+      <!-- Painel: dinheiro/PIX -->
+      <section id="panel-money" class="content-card donation-panel" role="tabpanel" aria-labelledby="tab-money">
+        <h2 class="donation-panel-title">Fazer Doação em Dinheiro</h2>
+        <div class="donation-inner-card">
+          <div class="donation-inner-icon" aria-hidden="true">📱</div>
+          <h3>Chave PIX para Doação</h3>
+          <p class="muted">Faça sua doação via PIX usando a chave abaixo ou gere o QR Code.</p>
+
+          <form class="pix-form">
+            <div class="form-row">
+              <label for="pix-key">Chave PIX</label>
+              <input type="text" id="pix-key" placeholder="ex: email@ong.org">
+            </div>
+            <div class="wizard-actions-split">
+              <button type="button" class="btn btn-primary" id="btn-gerar-pix">Gerar QR Code PIX</button>
+              <button type="button" class="btn btn-secondary" id="btn-copiar-payload">Copiar payload</button>
+            </div>
+            <div class="form-row">
+              <label for="pix-payload">Payload (texto para copiar)</label>
+              <textarea id="pix-payload" rows="3" readonly></textarea>
+            </div>
+            <div class="pix-qr-wrap" aria-label="QR Code PIX">
+              <img id="pix-qr" class="pix-qr" src="" alt="QR Code PIX (gere para exibir)">
+              <p class="muted small">QR gerado via Google Chart API (apenas imagem).</p>
+            </div>
+            <p id="doar-feedback" class="muted" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+
+      <!-- Painel: itens (estrutura semelhante ao exemplo da imagem) -->
+      <section id="panel-items" class="content-card donation-panel" role="tabpanel" aria-labelledby="tab-items" hidden>
+        <h2 class="donation-panel-title">Doação de Itens</h2>
+        <p class="muted">Doe ração, brinquedos, medicamentos e outros itens necessários.</p>
+
+        <form id="doar-itens-form" class="form-adocao" novalidate>
+          <!-- Apadrinhar um pet (opcional) -->
+          <fieldset class="form-section">
+            <legend>Apadrinhar um pet específico (opcional)</legend>
+            <p class="muted small">
+              Escolha um pet para dedicar sua doação. Seu apoio fará diferença direta na vida dele!
+            </p>
+            <div class="form-row">
+              <label for="doar-pet">Selecione um pet para apadrinhar (opcional)</label>
+              <select id="doar-pet" name="petId">
+                <option value="">Nenhum pet específico</option>
+              </select>
+            </div>
+          </fieldset>
+
+          <!-- Tipo de item -->
+          <fieldset class="form-section">
+            <legend>Tipo de item</legend>
+            <div class="doar-tipo-grid">
+              <div class="form-row">
+                <div class="radio-group coluna">
+                  <label class="radio-label"><input type="radio" name="doar_tipo" value="Ração e Alimentação"> Ração e Alimentação</label>
+                  <label class="radio-label"><input type="radio" name="doar_tipo" value="Medicamentos"> Medicamentos</label>
+                  <label class="radio-label"><input type="radio" name="doar_tipo" value="Produtos de Limpeza"> Produtos de Limpeza</label>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="radio-group coluna">
+                  <label class="radio-label"><input type="radio" name="doar_tipo" value="Brinquedos"> Brinquedos</label>
+                  <label class="radio-label"><input type="radio" name="doar_tipo" value="Acessórios"> Acessórios</label>
+                  <label class="radio-label"><input type="radio" name="doar_tipo" value="Outros"> Outros</label>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Descrição e quantidade -->
+          <fieldset class="form-section">
+            <legend>Detalhes da doação</legend>
+            <div class="form-row">
+              <label for="doar-descricao">Descrição dos itens</label>
+              <textarea id="doar-descricao" name="descricao" rows="3" placeholder="Descreva os itens que gostaria de doar (marca, quantidade, estado, etc)."></textarea>
+            </div>
+            <div class="form-row">
+              <label for="doar-quantidade">Quantidade aproximada</label>
+              <input id="doar-quantidade" name="quantidade" type="text" placeholder="Ex.: 2 sacos de 15kg, 3 unidades, 1 caixa, etc.">
+            </div>
+          </fieldset>
+
+          <!-- Contato -->
+          <fieldset class="form-section">
+            <legend>Suas informações para contato</legend>
+            <div class="form-row">
+              <label for="doar-contato">Nome, telefone e endereço para combinarmos a coleta ou entrega</label>
+              <textarea id="doar-contato" name="contato" rows="3" placeholder="Ex.: Nome, telefone, bairro/cidade."></textarea>
+            </div>
+          </fieldset>
+
+          <!-- Itens mais necessários (chips a partir do cadastro do admin) -->
+          <fieldset class="form-section">
+            <legend>Itens mais necessários no momento</legend>
+            <p class="muted small">Baseado na lista cadastrada pelos moderadores.</p>
+            <div id="donation-important" class="donation-important"></div>
+          </fieldset>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary btn-lg">Registrar Doação de Itens</button>
+          </div>
+          <p id="doar-itens-feedback" class="muted" aria-live="polite"></p>
+        </form>
+      </section>
+    </section>
+
+    <section class="other-help">
+      <div class="section other-help-inner">
+        <h2>Outras formas de ajudar</h2>
+        <p class="muted">
+          Além das doações, você pode ajudar divulgando nosso trabalho, sendo voluntário(a) ou adotando um de nossos pets.
+        </p>
+        <div class="other-help-actions">
+          <a href="sobre.html" class="btn btn-secondary">Seja voluntário</a>
+          <span class="muted">Compartilhe nossa causa com seus amigos e familiares.</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h3>Adote um Amigo</h3>
+        <p>ONG fictícia – protótipo.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Links</h4>
+        <ul>
+          <li><a href="index.html#animais">Ver animais</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="admin/login.html">Acesso moderadores</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Painel simplificado – apenas se estiver logado como moderador (controlado via JS) -->
+    <div id="moderator-panel" class="moderator-panel" hidden>
+      <div class="moderator-panel-inner">
+        <strong>Moderadores</strong>
+        <span class="muted">Você está logado. Edite itens e pets no dashboard.</span>
+        <a class="btn btn-secondary btn-small" href="admin/dashboard.html">Abrir dashboard</a>
+      </div>
+    </div>
+
+    <p class="footer-copy">&copy; Protótipo – Plataforma de Adoção de Animais (PIBEC)</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof initDoarPage === 'function') initDoarPage();
+    });
+  </script>
+</body>
+</html>
+

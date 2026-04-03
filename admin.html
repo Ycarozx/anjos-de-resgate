@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Painel Admin</title>
+</head>
+<body>
+
+<h1>Painel Administrativo</h1>
+
+<button onclick="logout()">Sair</button>
+
+<h2>Adicionar Pet</h2>
+
+<form onsubmit="adicionarPet(event)">
+  <input type="text" id="nome" placeholder="Nome do pet" required>
+  <input type="text" id="especie" placeholder="Cachorro ou Gato" required>
+  <input type="text" id="idade" placeholder="Idade" required>
+  <input type="text" id="porte" placeholder="Porte" required>
+  <input type="text" id="genero" placeholder="Macho/Fêmea" required>
+  <input type="text" id="imagem" placeholder="URL da imagem" required>
+  <button type="submit">Adicionar</button>
+</form>
+
+<h2>Lista de Pets</h2>
+<div id="lista-pets"></div>
+
+<script>
+const API_URL = "http://127.0.0.1:5000";
+
+// 🔐 PROTEÇÃO (só admin entra)
+const user = JSON.parse(localStorage.getItem("user"));
+
+if (!user || !user.is_admin) {
+  alert("Acesso negado!");
+  window.location.href = "index.html";
+}
+
+// LOGOUT
+function logout() {
+  localStorage.removeItem("user");
+  window.location.href = "index.html";
+}
+
+// ADICIONAR PET
+async function adicionarPet(e) {
+  e.preventDefault();
+
+  const data = {
+    nome: document.getElementById("nome").value,
+    especie: document.getElementById("especie").value,
+    idade: document.getElementById("idade").value,
+    porte: document.getElementById("porte").value,
+    genero: document.getElementById("genero").value,
+    imagem: document.getElementById("imagem").value
+  };
+
+  const res = await fetch(API_URL + "/pets", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+
+  const result = await res.json();
+
+  if (result.success) {
+    alert("Pet adicionado!");
+    carregarPets();
+  } else {
+    alert("Erro ao adicionar");
+  }
+}
+
+// LISTAR PETS
+async function carregarPets() {
+  const res = await fetch(API_URL + "/pets");
+  const pets = await res.json();
+
+  const container = document.getElementById("lista-pets");
+  container.innerHTML = "";
+
+  pets.forEach(pet => {
+    container.innerHTML += `
+      <div>
+        <p>${pet.nome} - ${pet.especie}</p>
+        <button onclick="removerPet(${pet.id})">Remover</button>
+      </div>
+    `;
+  });
+}
+
+// REMOVER PET
+async function removerPet(id) {
+  await fetch(API_URL + "/pets/" + id, {
+    method: "DELETE"
+  });
+
+  carregarPets();
+}
+
+carregarPets();
+</script>
+
+</body>
+</html>

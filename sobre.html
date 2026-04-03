@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--
+  sobre.html
+  Página “Sobre” da ONG (protótipo MVP).
+  Como abrir: basta abrir index.html e navegar pelo menu.
+  Sem backend: conteúdo fixo/estático (pode editar textos e imagens aqui).
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre os Anjos de Resgate</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="prototype-banner" role="status" aria-live="polite">
+    Protótipo — sem backend. Sistema de login e dados salvos no navegador; para produção é necessária autenticação server-side e banco de dados.
+  </div>
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" aria-label="Ir para página inicial">
+        <img src="assets/anjos-logo.png" alt="Associação Anjos de Resgate" class="logo-img">
+        <span class="logo-text">Anjos de Resgate</span>
+      </a>
+      <nav class="nav" aria-label="Menu principal">
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="index.html#animais">Animais</a></li>
+          <li><a href="lost-pets.html">Animais Perdidos</a></li>
+          <li><a href="sobre.html" aria-current="page">Sobre</a></li>
+          <li><a href="doar.html">Doar</a></li>
+        </ul>
+      </nav>
+      <a href="index.html#animais" class="btn btn-primary header-cta">Adotar agora</a>
+      <button type="button" class="menu-toggle" aria-label="Abrir menu" aria-expanded="false"></button>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Hero da página Sobre, inspirado no layout enviado -->
+    <section class="section sobre-hero">
+      <div class="sobre-hero-logo-wrap">
+        <div class="sobre-hero-logo-circle">
+          <img src="assets/anjos-logo.png" alt="Logo Anjos de Resgate" class="sobre-hero-logo-img">
+        </div>
+      </div>
+      <h1 class="sobre-hero-title">Sobre os <span>Anjos de Resgate</span></h1>
+      <p class="sobre-hero-subtitle">Transformando vidas, uma patinha de cada vez</p>
+    </section>
+
+    <!-- Conteúdo principal - Nossa História -->
+    <section class="section content-card sobre-conteudo">
+      <h2 class="sobre-section-title">
+        <span class="sobre-section-icon">♡</span>
+        Nossa História
+      </h2>
+      <p>
+        A ONG <strong>Anjos de Resgate</strong> nasceu do amor incondicional aos animais e do compromisso em fazer a diferença na
+        vida de pets abandonados e em situação de vulnerabilidade. Localizada em São Sebastião do Paraíso, nossa
+        história começou com um grupo de voluntários dedicados que não podiam ficar indiferentes ao sofrimento dos
+        animais de rua.
+      </p>
+      <p>
+        O que começou com resgates esporádicos, rapidamente se transformou em uma missão de vida. Percebemos
+        que não bastava apenas resgatar – era preciso criar uma estrutura para cuidar, tratar, reabilitar e encontrar lares
+        amorosos para cada animal que cruzasse nosso caminho.
+      </p>
+      <p>
+        Hoje, somos uma comunidade de voluntários, veterinários, doadores e famílias adotivas que trabalham juntos
+        para dar uma segunda chance a dezenas de animais todos os anos. Cada resgate é uma história de superação,
+        cada adoção é uma vitória do amor sobre o abandono.
+      </p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h3>Anjos de Resgate</h3>
+        <p>Associação de proteção animal.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Links</h4>
+        <ul>
+          <li><a href="index.html#animais">Ver animais</a></li>
+          <li><a href="doar.html">Doar</a></li>
+          <li><a href="admin/login.html">Acesso moderadores</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-copy">&copy; Protótipo – Plataforma de Adoção de Animais (PIBEC)</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof initCommonPage === 'function') initCommonPage();
+    });
+  </script>
+</body>
+</html>
+

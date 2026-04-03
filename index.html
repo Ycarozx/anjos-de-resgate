@@ -1,9 +1,182 @@
 <!DOCTYPE html>
-<html>
+<!--
+  Página inicial da Plataforma de Adoção de Animais (protótipo MVP).
+  Abra este arquivo no navegador (index.html). Sem backend; dados em script.js e localStorage.
+-->
+<html lang="pt-BR">
 <head>
-  <title>Adote um Amigo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adote um Amigo – Plataforma de Adoção de Animais</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Plataforma de Adoção de Animais</h1>
+  <!-- Banner indicando que é protótipo (sem backend) -->
+  <div class="prototype-banner" role="status" aria-live="polite">
+    Protótipo — sem backend. Sistema de login e dados salvos no navegador; para produção é necessária autenticação server-side e banco de dados.
+  </div>
+
+  <header class="header">
+    <div class="header-inner">
+      <!-- Logo Anjos de Resgate + texto -->
+      <a href="index.html" class="logo" aria-label="Ir para página inicial">
+        <img src="assets/anjos-logo.png" alt="Associação Anjos de Resgate" class="logo-img">
+        <span class="logo-text">Anjos de Resgate</span>
+      </a>
+      <nav class="nav" aria-label="Menu principal">
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="#animais">Animais</a></li>
+          <li><a href="lost-pets.html">Animais Perdidos</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="doar.html">Doar</a></li>
+          <!-- Versão mobile: ações aparecem dentro do menu -->
+          <li class="nav-auth"><a href="index.html#animais" class="btn btn-primary btn-small">Adotar agora</a></li>
+          <li class="nav-auth"><a href="login.html" class="btn btn-secondary btn-small">Login</a></li>
+          <li class="nav-auth"><a href="register.html" class="btn btn-primary btn-small">Cadastro</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a href="index.html#animais" class="btn btn-primary header-cta">Adotar agora</a>
+        <a href="login.html" class="btn btn-secondary header-login">Login</a>
+        <a href="register.html" class="btn btn-outline header-register">Cadastro</a>
+      </div>
+      <!-- Menu mobile: botão para abrir/fechar (controlado pelo JS) -->
+      <button type="button" class="menu-toggle" aria-label="Abrir menu" aria-expanded="false"></button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Banner principal com CTA -->
+    <section class="banner" aria-label="Chamada para adoção">
+      <div class="banner-overlay"></div>
+      <img
+        src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=1200&q=80"
+        alt="Cachorro e gato juntos em ambiente acolhedor"
+        class="banner-img"
+      >
+      <div class="banner-content">
+        <h1>Dê um lar para quem precisa</h1>
+        <p>Encontre seu novo companheiro entre nossos animais resgatados.</p>
+        <a href="#animais" class="btn btn-primary btn-lg">Adotar agora</a>
+      </div>
+    </section>
+
+    <!-- Seção de busca e filtros: filtros em coluna ao lado dos animais -->
+    <section id="animais" class="section filters-section" aria-labelledby="titulo-filtros">
+      <h2 id="titulo-filtros" class="section-title">Encontre seu amigo</h2>
+      <div class="filters-and-grid">
+        <aside class="filters-sidebar" aria-label="Filtros">
+          <div class="filters-wrapper">
+            <div class="filter-group">
+              <label for="busca-nome">Pesquisar por nome</label>
+              <input type="search" id="busca-nome" placeholder="Ex: Luna, Thor..." aria-label="Pesquisar animal por nome">
+            </div>
+            <div class="filter-group">
+              <label for="filtro-especie">Espécie</label>
+              <select id="filtro-especie" aria-label="Filtrar por espécie">
+                <option value="">Todos</option>
+                <option value="Cachorro">Cachorro</option>
+                <option value="Gato">Gato</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="filtro-porte">Porte</label>
+              <select id="filtro-porte" aria-label="Filtrar por porte">
+                <option value="">Todos</option>
+                <option value="Pequeno">Pequeno</option>
+                <option value="Médio">Médio</option>
+                <option value="Grande">Grande</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="filtro-idade">Idade</label>
+              <select id="filtro-idade" aria-label="Filtrar por idade">
+                <option value="">Todas</option>
+                <option value="Filhote">Filhote</option>
+                <option value="Jovem">Jovem</option>
+                <option value="Adulto">Adulto</option>
+                <option value="1 ano">1 ano</option>
+                <option value="2 anos">2 anos</option>
+                <option value="3 anos">3 anos</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="filtro-genero">Gênero</label>
+              <select id="filtro-genero" aria-label="Filtrar por gênero">
+                <option value="">Todos</option>
+                <option value="Macho">Macho</option>
+                <option value="Fêmea">Fêmea</option>
+              </select>
+            </div>
+          </div>
+        </aside>
+        <div class="animais-area">
+          <div id="grid-animais" class="grid-animais" role="list"></div>
+          <p id="nenhum-resultado" class="nenhum-resultado" hidden>Nenhum animal encontrado com os filtros selecionados.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Como funciona -->
+    <section id="sobre" class="section como-funciona" aria-labelledby="titulo-como-funciona">
+      <h2 id="titulo-como-funciona" class="section-title">Como funciona</h2>
+      <ol class="passos-list">
+        <li class="passo">
+          <span class="passo-numero" aria-hidden="true">1</span>
+          <h3>Escolha</h3>
+          <p>Navegue pelos animais e escolha aquele com quem você se identificou.</p>
+        </li>
+        <li class="passo">
+          <span class="passo-numero" aria-hidden="true">2</span>
+          <h3>Formulário</h3>
+          <p>Preencha o formulário de adoção com seus dados e informações da residência.</p>
+        </li>
+        <li class="passo">
+          <span class="passo-numero" aria-hidden="true">3</span>
+          <h3>Entrevista</h3>
+          <p>A ONG entrará em contato para agendar uma entrevista e conhecer você.</p>
+        </li>
+        <li class="passo">
+          <span class="passo-numero" aria-hidden="true">4</span>
+          <h3>Entrega</h3>
+          <p>Após aprovação, combinamos a entrega do animal no seu novo lar.</p>
+        </li>
+      </ol>
+      <a href="doar.html" class="btn btn-secondary">Doar</a>
+    </section>
+  </main>
+
+  <footer id="contato" class="footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h3>Adote um Amigo</h3>
+        <p>ONG fictícia para protótipo. Em produção: dados reais da ONG parceira.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <p>E-mail: contato@adoteumamigo.org.br</p>
+        <p>Telefone: (11) 99999-9999</p>
+      </div>
+      <div class="footer-col">
+        <h4>Links</h4>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="index.html#animais">Animais</a></li>
+          <li><a href="lost-pets.html">Animais Perdidos</a></li>
+          <li><a href="formulario.html">Formulário de adoção</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-copy">&copy; Protótipo – Plataforma de Adoção de Animais (PIBEC)</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Inicialização da página inicial: renderizar cards e aplicar filtros
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof initHomePage === 'function') initHomePage();
+    });
+  </script>
 </body>
 </html>

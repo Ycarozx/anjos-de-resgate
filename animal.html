@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!--
+  Página de detalhes do animal. Lê o id pela URL (animal.html?id=1).
+  Dados vêm do localStorage (chave: animals) com fallback para exemplos em script.js.
+  Botão "Quero Adotar" leva ao formulário com animalId.
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalhes do animal – Adote um Amigo</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Banner protótipo -->
+  <div class="prototype-banner" role="status" aria-live="polite">
+    Protótipo — sem backend. Sistema de login e dados salvos no navegador; para produção é necessária autenticação server-side e banco de dados.
+  </div>
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" aria-label="Ir para página inicial">Adote um Amigo</a>
+      <nav class="nav" aria-label="Menu principal">
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="index.html#animais">Animais</a></li>
+          <li><a href="lost-pets.html">Animais Perdidos</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="doar.html">Doar</a></li>
+        </ul>
+      </nav>
+      <a href="index.html#animais" class="btn btn-primary header-cta">Adotar agora</a>
+      <button type="button" class="menu-toggle" aria-label="Abrir menu" aria-expanded="false"></button>
+    </div>
+  </header>
+
+  <main class="main animal-page">
+    <!-- Conteúdo carregado pelo script conforme ?id= na URL -->
+    <div id="animal-container" class="animal-detail">
+      <p id="animal-loading" class="loading-msg">Carregando...</p>
+      <div id="animal-content" class="animal-content" hidden>
+        <!-- Galeria: imagem principal + miniaturas -->
+        <div class="animal-gallery">
+          <div class="gallery-main">
+            <img id="animal-img-principal" src="" alt="" class="gallery-main-img">
+          </div>
+          <div id="gallery-thumbs" class="gallery-thumbs" role="list"></div>
+        </div>
+        <div class="animal-info">
+          <h1 id="animal-nome" class="animal-nome"></h1>
+          <ul class="animal-meta" aria-label="Características do animal">
+            <li><span class="meta-label">Espécie:</span> <span id="animal-especie"></span></li>
+            <li><span class="meta-label">Idade:</span> <span id="animal-idade"></span></li>
+            <li><span class="meta-label">Porte:</span> <span id="animal-porte"></span></li>
+            <li><span class="meta-label">Gênero:</span> <span id="animal-genero"></span></li>
+            <li><span class="meta-label">Vacinado(a):</span> <span id="animal-vacinado"></span></li>
+            <li><span class="meta-label">Castrado(a):</span> <span id="animal-castrado"></span></li>
+          </ul>
+          <section class="animal-historia" aria-labelledby="titulo-historia">
+            <h2 id="titulo-historia">História</h2>
+            <p id="animal-historia-texto"></p>
+          </section>
+          <a id="btn-adotar" href="#" class="btn btn-primary btn-lg">Quero Adotar</a>
+        </div>
+      </div>
+      <p id="animal-not-found" class="error-msg" hidden>Animal não encontrado. <a href="index.html">Voltar à lista</a>.</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h3>Adote um Amigo</h3>
+        <p>ONG fictícia – protótipo.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <p>E-mail: contato@adoteumamigo.org.br</p>
+        <p>Telefone: (11) 99999-9999</p>
+      </div>
+    </div>
+    <p class="footer-copy">&copy; Protótipo – Plataforma de Adoção de Animais (PIBEC)</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof initAnimalPage === 'function') initAnimalPage();
+    });
+  </script>
+</body>
+</html>
