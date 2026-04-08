@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1,
+    "nome": "Belinha",
+    "especie": "Cachorro",
+    "tipo": "perdido",
+    "local": "Parque da Cidade, São Paulo",
+    "data": "2023-10-20",
+    "contato": "(11) 98765-4321",
+    "descricao": "Cachorra de porte pequeno, com coleira rosa. Muito dócil, mas assustada. Atende por Belinha."
+  },
+  {
+    "id": 2,
+    "especie": "Gato",
+    "tipo": "encontrado",
+    "local": "Rua das Flores, Campinas",
+    "data": "2023-11-01",
+    "contato": "email@email.com",
+    "descricao": "Gato preto, sem coleira, aparenta ser jovem. Muito manso. Encontrado próximo à praça."
+  }
+]

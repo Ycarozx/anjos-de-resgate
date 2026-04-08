@@ -1,28 +1,33 @@
 <!DOCTYPE html>
-<!--
-  Página inicial da Plataforma de Adoção de Animais (protótipo MVP).
-  Abra este arquivo no navegador (index.html). Sem backend; dados em script.js e localStorage.
--->
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Adote um Amigo – Plataforma de Adoção de Animais</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Adote um Amigo - Plataforma de Adoção de Animais</title>
+  
+  <!-- Controle de Cache -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles-bootstrap.css">
 </head>
 <body>
-  <!-- Banner indicando que é protótipo (sem backend) -->
-  <div class="prototype-banner" role="status" aria-live="polite">
-    Protótipo — sem backend. Sistema de login e dados salvos no navegador; para produção é necessária autenticação server-side e banco de dados.
-  </div>
-
+  <!-- Header Principal -->
   <header class="header">
     <div class="header-inner">
-      <!-- Logo Anjos de Resgate + texto -->
+      <!-- Logo -->
       <a href="index.html" class="logo" aria-label="Ir para página inicial">
         <img src="assets/anjos-logo.png" alt="Associação Anjos de Resgate" class="logo-img">
         <span class="logo-text">Anjos de Resgate</span>
       </a>
+      
+      <!-- Navegação Principal -->
       <nav class="nav" aria-label="Menu principal">
         <ul>
           <li><a href="index.html">Início</a></li>
@@ -30,31 +35,28 @@
           <li><a href="lost-pets.html">Animais Perdidos</a></li>
           <li><a href="sobre.html">Sobre</a></li>
           <li><a href="doar.html">Doar</a></li>
-          <!-- Versão mobile: ações aparecem dentro do menu -->
-          <li class="nav-auth"><a href="index.html#animais" class="btn btn-primary btn-small">Adotar agora</a></li>
-          <li class="nav-auth"><a href="login.html" class="btn btn-secondary btn-small">Login</a></li>
-          <li class="nav-auth"><a href="register.html" class="btn btn-primary btn-small">Cadastro</a></li>
-        </ul>
+                  </ul>
       </nav>
+      
+      <!-- Ações do Header -->
       <div class="header-actions">
-        <a href="index.html#animais" class="btn btn-primary header-cta">Adotar agora</a>
-        <a href="login.html" class="btn btn-secondary header-login">Login</a>
-        <a href="register.html" class="btn btn-outline header-register">Cadastro</a>
+        <a href="login.html" class="btn btn-secondary header-login" id="btn-login">Login</a>
+        <a href="register.html" class="btn btn-primary header-register" id="btn-register">Cadastro</a>
       </div>
-      <!-- Menu mobile: botão para abrir/fechar (controlado pelo JS) -->
-      <button type="button" class="menu-toggle" aria-label="Abrir menu" aria-expanded="false"></button>
+      
+      <!-- Menu Mobile Toggle -->
+      <button type="button" class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+        <span>Menu</span>
+      </button>
     </div>
   </header>
 
+  <!-- Main Content -->
   <main>
-    <!-- Banner principal com CTA -->
+    <!-- Banner Principal -->
     <section class="banner" aria-label="Chamada para adoção">
+      <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=1200&q=80" alt="Cachorro e gato juntos em ambiente acolhedor" class="banner-img">
       <div class="banner-overlay"></div>
-      <img
-        src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=1200&q=80"
-        alt="Cachorro e gato juntos em ambiente acolhedor"
-        class="banner-img"
-      >
       <div class="banner-content">
         <h1>Dê um lar para quem precisa</h1>
         <p>Encontre seu novo companheiro entre nossos animais resgatados.</p>
@@ -62,16 +64,19 @@
       </div>
     </section>
 
-    <!-- Seção de busca e filtros: filtros em coluna ao lado dos animais -->
+    <!-- Seção de Animais com Filtros -->
     <section id="animais" class="section filters-section" aria-labelledby="titulo-filtros">
       <h2 id="titulo-filtros" class="section-title">Encontre seu amigo</h2>
+      
       <div class="filters-and-grid">
+        <!-- Filtros Laterais -->
         <aside class="filters-sidebar" aria-label="Filtros">
           <div class="filters-wrapper">
             <div class="filter-group">
               <label for="busca-nome">Pesquisar por nome</label>
               <input type="search" id="busca-nome" placeholder="Ex: Luna, Thor..." aria-label="Pesquisar animal por nome">
             </div>
+            
             <div class="filter-group">
               <label for="filtro-especie">Espécie</label>
               <select id="filtro-especie" aria-label="Filtrar por espécie">
@@ -80,6 +85,7 @@
                 <option value="Gato">Gato</option>
               </select>
             </div>
+            
             <div class="filter-group">
               <label for="filtro-porte">Porte</label>
               <select id="filtro-porte" aria-label="Filtrar por porte">
@@ -89,6 +95,7 @@
                 <option value="Grande">Grande</option>
               </select>
             </div>
+            
             <div class="filter-group">
               <label for="filtro-idade">Idade</label>
               <select id="filtro-idade" aria-label="Filtrar por idade">
@@ -99,8 +106,10 @@
                 <option value="1 ano">1 ano</option>
                 <option value="2 anos">2 anos</option>
                 <option value="3 anos">3 anos</option>
+                <option value="4+ anos">4+ anos</option>
               </select>
             </div>
+            
             <div class="filter-group">
               <label for="filtro-genero">Gênero</label>
               <select id="filtro-genero" aria-label="Filtrar por gênero">
@@ -111,71 +120,112 @@
             </div>
           </div>
         </aside>
-        <div class="animais-area">
-          <div id="grid-animais" class="grid-animais" role="list"></div>
-          <p id="nenhum-resultado" class="nenhum-resultado" hidden>Nenhum animal encontrado com os filtros selecionados.</p>
+        
+        <!-- Grid de Animais -->
+        <div class="animals-grid">
+          <div class="grid" aria-label="Lista de animais disponíveis">
+            <!-- Cards serão renderizados dinamicamente pelo JavaScript -->
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Como funciona -->
-    <section id="sobre" class="section como-funciona" aria-labelledby="titulo-como-funciona">
-      <h2 id="titulo-como-funciona" class="section-title">Como funciona</h2>
-      <ol class="passos-list">
-        <li class="passo">
-          <span class="passo-numero" aria-hidden="true">1</span>
-          <h3>Escolha</h3>
-          <p>Navegue pelos animais e escolha aquele com quem você se identificou.</p>
-        </li>
-        <li class="passo">
-          <span class="passo-numero" aria-hidden="true">2</span>
-          <h3>Formulário</h3>
-          <p>Preencha o formulário de adoção com seus dados e informações da residência.</p>
-        </li>
-        <li class="passo">
-          <span class="passo-numero" aria-hidden="true">3</span>
-          <h3>Entrevista</h3>
-          <p>A ONG entrará em contato para agendar uma entrevista e conhecer você.</p>
-        </li>
-        <li class="passo">
-          <span class="passo-numero" aria-hidden="true">4</span>
-          <h3>Entrega</h3>
-          <p>Após aprovação, combinamos a entrega do animal no seu novo lar.</p>
-        </li>
-      </ol>
-      <a href="doar.html" class="btn btn-secondary">Doar</a>
+    <!-- Seção Sobre a ONG -->
+    <section class="section" aria-labelledby="titulo-sobre">
+      <div class="container">
+        <h2 id="titulo-sobre" class="section-title">Sobre Anjos de Resgate</h2>
+        <div class="content-card">
+          <p>Somos uma organização dedicada ao resgate, cuidado e adoção responsável de animais abandonados. Nossa missão é dar uma segunda chance a seres que tanto precisam de amor e cuidado.</p>
+          <p>Trabalhamos com voluntários apaixonados que se dedicam diariamente para garantir que cada animal receba o tratamento necessário até encontrar um lar definitivo.</p>
+          <div class="text-center">
+            <a href="sobre.html" class="btn btn-primary">Conheça mais nossa história</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção Como Adotar -->
+    <section class="section" aria-labelledby="titulo-como-adotar" style="background: var(--cor-fundo-card);">
+      <div class="container">
+        <h2 id="titulo-como-adotar" class="section-title">Como Adotar</h2>
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+          <div class="content-card">
+            <h3>1. Escolha seu companheiro</h3>
+            <p>Navegue por nossos animais disponíveis e encontre aquele que mais combina com você.</p>
+          </div>
+          <div class="content-card">
+            <h3>2. Preencha o formulário</h3>
+            <p>Conte-nos um pouco sobre você e seu lar para garantirmos a melhor combinação.</p>
+          </div>
+          <div class="content-card">
+            <h3>3. Visita e entrevista</h3>
+            <p>Agendaremos uma visita para conhecer o animal e garantir que tudo está certo.</p>
+          </div>
+          <div class="content-card">
+            <h3>4. Adoção responsável</h3>
+            <p>Após aprovação, você levará seu novo amigo para um lar cheio de amor.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção Doações -->
+    <section class="section" aria-labelledby="titulo-doacoes">
+      <div class="container">
+        <h2 id="titulo-doacoes" class="section-title">Ajude-nos a Ajudar</h2>
+        <div class="content-card">
+          <p>Sua doação faz toda a diferença na vida dos animais que cuidamos. Com sua ajuda, podemos oferecer alimentação, tratamento médico e um ambiente seguro enquanto eles esperam por um lar.</p>
+          <div class="text-center">
+            <a href="doar.html" class="btn btn-primary">Faça uma doação</a>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer id="contato" class="footer">
-    <div class="footer-inner">
-      <div class="footer-col">
-        <h3>Adote um Amigo</h3>
-        <p>ONG fictícia para protótipo. Em produção: dados reais da ONG parceira.</p>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--espacamento-xl);">
+        <div>
+          <h3>Anjos de Resgate</h3>
+          <p>Dando amor e uma segunda chance a quem precisa.</p>
+        </div>
+        <div>
+          <h4>Links Rápidos</h4>
+          <ul style="list-style: none; padding: 0;">
+            <li><a href="index.html" style="color: white; text-decoration: none;">Início</a></li>
+            <li><a href="#animais" style="color: white; text-decoration: none;">Animais</a></li>
+            <li><a href="lost-pets.html" style="color: white; text-decoration: none;">Animais Perdidos</a></li>
+            <li><a href="doar.html" style="color: white; text-decoration: none;">Doar</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contato</h4>
+          <p>Email: contato@anjosderesgate.org</p>
+          <p>Telefone: (11) 1234-5678</p>
+          <p>São Paulo, SP</p>
+        </div>
       </div>
-      <div class="footer-col">
-        <h4>Contato</h4>
-        <p>E-mail: contato@adoteumamigo.org.br</p>
-        <p>Telefone: (11) 99999-9999</p>
-      </div>
-      <div class="footer-col">
-        <h4>Links</h4>
-        <ul>
-          <li><a href="index.html">Início</a></li>
-          <li><a href="index.html#animais">Animais</a></li>
-          <li><a href="lost-pets.html">Animais Perdidos</a></li>
-          <li><a href="formulario.html">Formulário de adoção</a></li>
-        </ul>
-      </div>
+      <p class="footer-copy">&copy; 2024 Anjos de Resgate - Todos os direitos reservados</p>
     </div>
-    <p class="footer-copy">&copy; Protótipo – Plataforma de Adoção de Animais (PIBEC)</p>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script src="script.js?v=1.0.0"></script>
+  
   <script>
-    // Inicialização da página inicial: renderizar cards e aplicar filtros
     document.addEventListener('DOMContentLoaded', function() {
-      if (typeof initHomePage === 'function') initHomePage();
+      // Inicializar página principal
+      PageInitializer.initHomePage();
+      
+      // Atualizar interface baseada no usuário
+      updateUIBasedOnUser();
+      
+      // Inicializar menu mobile
+      MobileMenu.init();
     });
   </script>
 </body>

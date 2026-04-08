@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1,
+    "nome": "Nick",
+    "especie": "Cachorro",
+    "porte": "Pequeno",
+    "idade": "Filhote",
+    "genero": "Macho",
+    "descricao": "Animal legal :)",
+    "imagem": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStMcYCOYZkZMnlAxT7ufEcOVZOcLF7YEo_jw&s",
+    "status": "Adotado"
+  }
+]

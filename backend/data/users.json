@@ -1,0 +1,14 @@
+[
+  {
+    "nome": "Administrador",
+    "email": "admin@admin.com",
+    "senha": "123456",
+    "isAdmin": true
+  },
+  {
+    "nome": "ycaro alves de sousa",
+    "email": "ycaroalves4@gmail.com",
+    "senha": "ycarosousa21",
+    "isAdmin": false
+  }
+]

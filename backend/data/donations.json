@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "item_id": 2,
+    "nome_usuario": "Ycaro",
+    "contato": "ycaroalves4@gmail.com",
+    "quantidade": 1,
+    "mensagem": "Olá, teste",
+    "status": "pendente",
+    "data_criacao": "2026-04-08T02:25:03.108381"
+  }
+]

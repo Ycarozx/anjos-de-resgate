@@ -2,104 +2,1270 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Painel Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Administrativo - Anjos de Resgate</title>
+  
+  <!-- Controle de Cache -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles-bootstrap.css">
+  
+  <style>
+    .admin-page {
+      background: linear-gradient(135deg, var(--cor-fundo) 0%, rgba(36, 90, 146, 0.05) 100%);
+      min-height: 100vh;
+    }
+    
+    .admin-header {
+      background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-primaria-escura) 100%);
+      color: white;
+      padding: 2rem 0;
+      box-shadow: var(--sombra-hover);
+    }
+    
+    .admin-header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .admin-header h1 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 600;
+    }
+    
+    .admin-header p {
+      margin: 0.5rem 0 0;
+      opacity: 0.9;
+    }
+    
+    .admin-nav {
+      background: white;
+      border-radius: var(--raio-grande);
+      box-shadow: var(--sombra);
+      padding: 0;
+      margin: -1rem auto 2rem;
+      max-width: 800px;
+      overflow: hidden;
+    }
+    
+    .admin-nav .nav {
+      border-bottom: none;
+    }
+    
+    .admin-nav .nav-link {
+      color: var(--cor-texto);
+      border: none;
+      padding: 1rem 1.5rem;
+      font-weight: 500;
+      transition: all var(--transicao);
+      border-radius: 0;
+    }
+    
+    .admin-nav .nav-link:hover {
+      color: var(--cor-primaria);
+      background: rgba(36, 90, 146, 0.05);
+    }
+    
+    .admin-nav .nav-link.active {
+      color: white;
+      background: var(--cor-primaria);
+    }
+    
+    .admin-section {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    .admin-section.active {
+      display: block;
+    }
+    
+    .admin-card {
+      background: white;
+      border-radius: var(--raio-grande);
+      box-shadow: var(--sombra);
+      border: 1px solid var(--cor-borda);
+      margin-bottom: 2rem;
+    }
+    
+    .admin-card-header {
+      background: rgba(36, 90, 146, 0.05);
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--cor-borda);
+      border-radius: var(--raio-grande) var(--raio-grande) 0 0;
+    }
+    
+    .admin-card-header h3 {
+      margin: 0;
+      color: var(--cor-primaria-escura);
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    
+    .admin-card-body {
+      padding: 2rem;
+    }
+    
+    .form-floating label {
+      color: var(--cor-texto-suave);
+    }
+    
+    .form-floating .form-control:focus ~ label {
+      color: var(--cor-primaria);
+    }
+    
+    .btn-admin {
+      background: var(--cor-primaria);
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      border-radius: var(--raio);
+      transition: all var(--transicao);
+    }
+    
+    .btn-admin:hover {
+      background: var(--cor-primaria-escura);
+      transform: translateY(-1px);
+    }
+    
+    .table-admin {
+      background: white;
+      border-radius: var(--raio-grande);
+      overflow: hidden;
+      box-shadow: var(--sombra);
+      border: 1px solid var(--cor-borda);
+    }
+    
+    .table-admin th {
+      background: rgba(36, 90, 146, 0.05);
+      font-weight: 600;
+      color: var(--cor-primaria-escura);
+      border-bottom: 2px solid var(--cor-primaria);
+    }
+    
+    .table-admin td {
+      vertical-align: middle;
+    }
+    
+    .table-admin tbody tr:hover {
+      background: rgba(36, 90, 146, 0.02);
+    }
+    
+    .admin-actions .btn {
+      padding: 0.375rem 0.75rem;
+      font-size: 0.875rem;
+      margin: 0 0.25rem;
+    }
+    
+    .stats-card {
+      background: white;
+      border-radius: var(--raio-grande);
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: var(--sombra);
+      border: 1px solid var(--cor-borda);
+      transition: all var(--transicao);
+    }
+    
+    .stats-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--sombra-hover);
+    }
+    
+    .stats-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--cor-primaria);
+      display: block;
+    }
+    
+    .stats-label {
+      color: var(--cor-texto-suave);
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+    }
+    
+    .alert-admin {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      max-width: 300px;
+      z-index: 1050;
+      border-radius: var(--raio);
+      box-shadow: var(--sombra-hover);
+    }
+    
+    .loading-spinner {
+      display: none;
+    }
+    
+    .loading .loading-spinner {
+      display: inline-block;
+    }
+    
+    .loading .btn-text {
+      display: none;
+    }
+  </style>
 </head>
-<body>
-
-<h1>Painel Administrativo</h1>
-
-<button onclick="logout()">Sair</button>
-
-<h2>Adicionar Pet</h2>
-
-<form onsubmit="adicionarPet(event)">
-  <input type="text" id="nome" placeholder="Nome do pet" required>
-  <input type="text" id="especie" placeholder="Cachorro ou Gato" required>
-  <input type="text" id="idade" placeholder="Idade" required>
-  <input type="text" id="porte" placeholder="Porte" required>
-  <input type="text" id="genero" placeholder="Macho/Fêmea" required>
-  <input type="text" id="imagem" placeholder="URL da imagem" required>
-  <button type="submit">Adicionar</button>
-</form>
-
-<h2>Lista de Pets</h2>
-<div id="lista-pets"></div>
-
-<script>
-const API_URL = "http://127.0.0.1:5000";
-
-// 🔐 PROTEÇÃO (só admin entra)
-const user = JSON.parse(localStorage.getItem("user"));
-
-if (!user || !user.is_admin) {
-  alert("Acesso negado!");
-  window.location.href = "index.html";
-}
-
-// LOGOUT
-function logout() {
-  localStorage.removeItem("user");
-  window.location.href = "index.html";
-}
-
-// ADICIONAR PET
-async function adicionarPet(e) {
-  e.preventDefault();
-
-  const data = {
-    nome: document.getElementById("nome").value,
-    especie: document.getElementById("especie").value,
-    idade: document.getElementById("idade").value,
-    porte: document.getElementById("porte").value,
-    genero: document.getElementById("genero").value,
-    imagem: document.getElementById("imagem").value
-  };
-
-  const res = await fetch(API_URL + "/pets", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
-  });
-
-  const result = await res.json();
-
-  if (result.success) {
-    alert("Pet adicionado!");
-    carregarPets();
-  } else {
-    alert("Erro ao adicionar");
-  }
-}
-
-// LISTAR PETS
-async function carregarPets() {
-  const res = await fetch(API_URL + "/pets");
-  const pets = await res.json();
-
-  const container = document.getElementById("lista-pets");
-  container.innerHTML = "";
-
-  pets.forEach(pet => {
-    container.innerHTML += `
+<body class="admin-page">
+  <!-- Header Admin -->
+  <header class="admin-header">
+    <div class="container">
       <div>
-        <p>${pet.nome} - ${pet.especie}</p>
-        <button onclick="removerPet(${pet.id})">Remover</button>
+        <h1><i class="bi bi-shield-check me-2"></i>Painel Administrativo</h1>
+        <p>Gerencie os animais, doações e configurações do sistema</p>
       </div>
-    `;
-  });
-}
+      <div class="d-flex align-items-center gap-3">
+        <span class="me-3">Bem-vindo, Administrador</span>
+        <a href="index.html" class="btn btn-light btn-sm">
+          <i class="bi bi-house me-1"></i>Voltar ao site
+        </a>
+        <button onclick="AuthManager.logout()" class="btn btn-danger btn-sm">
+          <i class="bi bi-box-arrow-right me-1"></i>Sair
+        </button>
+      </div>
+    </div>
+  </header>
 
-// REMOVER PET
-async function removerPet(id) {
-  await fetch(API_URL + "/pets/" + id, {
-    method: "DELETE"
-  });
+  <!-- Main Content -->
+  <main class="container my-4">
+    <!-- Estatísticas -->
+    <div class="row mb-4">
+      <div class="col-md-3 col-sm-6 mb-3">
+        <div class="stats-card">
+          <div class="stats-number" id="stats-animals">0</div>
+          <div class="stats-label">Animais para Adoção</div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6 mb-3">
+        <div class="stats-card">
+          <div class="stats-number" id="stats-lost">0</div>
+          <div class="stats-label">Animais Perdidos</div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6 mb-3">
+        <div class="stats-card">
+          <div class="stats-number" id="stats-items">0</div>
+          <div class="stats-label">Itens Necessários</div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6 mb-3">
+        <div class="stats-card">
+          <div class="stats-number" id="stats-users">0</div>
+          <div class="stats-label">Usuários Cadastrados</div>
+        </div>
+      </div>
+    </div>
 
-  carregarPets();
-}
+    <!-- Navegação Admin -->
+    <div class="admin-nav">
+      <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+              <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#animals-tab" type="button">
+                <i class="bi bi-heart me-2"></i>Animais
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#lost-pets-tab" type="button">
+                <i class="bi bi-search me-2"></i>Animais Perdidos
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#donation-items-tab" type="button">
+                <i class="bi bi-box-seam me-2"></i>Itens de Doação
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#donations-received-tab" type="button">
+                <i class="bi bi-heart me-2"></i>Doações Recebidas
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#donations-tab" type="button">
+                <i class="bi bi-cash me-2"></i>Doações
+              </button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#settings-tab" type="button">
+                <i class="bi bi-gear me-2"></i>Configurações
+              </button>
+            </li>
+          </ul>
+    </div>
 
-carregarPets();
-</script>
+    <!-- Conteúdo das Abas -->
+    <div class="tab-content">
+      <!-- Aba Animais -->
+      <div class="tab-pane fade show active" id="animals-tab">
+        <!-- Formulário de Adição -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3><i class="bi bi-plus-circle me-2"></i>Adicionar Novo Animal</h3>
+          </div>
+          <div class="admin-card-body">
+            <form id="admin-animal-form">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" name="nome" id="animal-nome" placeholder="Nome do animal" required>
+                    <label for="animal-nome">Nome *</label>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="form-floating">
+                    <select class="form-control" name="especie" id="animal-especie" required>
+                      <option value="">Selecione...</option>
+                      <option value="Cachorro">Cachorro</option>
+                      <option value="Gato">Gato</option>
+                    </select>
+                    <label for="animal-especie">Espécie *</label>
+                  </div>
+                </div>
+                
+                <div class="col-md-4">
+                  <div class="form-floating">
+                    <select class="form-control" name="porte" id="animal-porte">
+                      <option value="Pequeno">Pequeno</option>
+                      <option value="Médio">Médio</option>
+                      <option value="Grande">Grande</option>
+                    </select>
+                    <label for="animal-porte">Porte</label>
+                  </div>
+                </div>
+                
+                <div class="col-md-4">
+                  <div class="form-floating">
+                    <select class="form-control" name="idade" id="animal-idade">
+                      <option value="Filhote">Filhote</option>
+                      <option value="Jovem">Jovem</option>
+                      <option value="Adulto">Adulto</option>
+                      <option value="1 ano">1 ano</option>
+                      <option value="2 anos">2 anos</option>
+                      <option value="3 anos">3 anos</option>
+                      <option value="4+ anos">4+ anos</option>
+                    </select>
+                    <label for="animal-idade">Idade</label>
+                  </div>
+                </div>
+                
+                <div class="col-md-4">
+                  <div class="form-floating">
+                    <select class="form-control" name="genero" id="animal-genero">
+                      <option value="Macho">Macho</option>
+                      <option value="Fêmea">Fêmea</option>
+                    </select>
+                    <label for="animal-genero">Gênero</label>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="form-floating">
+                    <select class="form-control" name="status" id="animal-status">
+                      <option value="Disponível">Disponível</option>
+                      <option value="Adotado">Adotado</option>
+                      <option value="Em processo">Em processo</option>
+                    </select>
+                    <label for="animal-status">Status</label>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="form-floating">
+                    <input type="url" class="form-control" name="imagem" id="animal-imagem" placeholder="https://exemplo.com/imagem.jpg">
+                    <label for="animal-imagem">URL da Imagem</label>
+                  </div>
+                </div>
+                
+                <div class="col-12">
+                  <div class="form-floating">
+                    <textarea class="form-control" name="descricao" id="animal-descricao" rows="4" placeholder="Descreva o animal, temperamento, cuidados especiais..."></textarea>
+                    <label for="animal-descricao">Descrição</label>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="d-flex gap-2 mt-4">
+                <button type="submit" class="btn btn-primary btn-admin">
+                  <span class="btn-text"><i class="bi bi-plus-circle me-2"></i>Adicionar Animal</span>
+                  <span class="loading-spinner spinner-border spinner-border-sm" role="status"></span>
+                </button>
+                <button type="reset" class="btn btn-secondary">
+                  <i class="bi bi-arrow-clockwise me-2"></i>Limpar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
 
+        <!-- Tabela de Animais -->
+        <div class="table-admin">
+          <div class="p-3 border-bottom bg-light">
+            <h4 class="mb-0"><i class="bi bi-list-ul me-2"></i>Animais Cadastrados</h4>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover mb-0" id="admin-animals-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nome</th>
+                  <th>Espécie</th>
+                  <th>Porte</th>
+                  <th>Idade</th>
+                  <th>Status</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Animais serão carregados dinamicamente -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aba Animais Perdidos -->
+      <div class="tab-pane fade" id="lost-pets-tab">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3><i class="bi bi-info-circle me-2"></i>Animais Perdidos</h3>
+          </div>
+          <div class="admin-card-body">
+            <div class="alert alert-info">
+              <i class="bi bi-info-circle me-2"></i>
+              Funcionalidade de gerenciamento de animais perdidos será implementada em breve.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aba Doação de Itens -->
+      <div class="tab-pane fade" id="donation-items-tab">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3><i class="bi bi-box-seam me-2"></i>Doação de Itens</h3>
+          </div>
+          <div class="admin-card-body">
+            <!-- Formulário Adicionar Item -->
+            <div class="mb-4">
+              <form id="donation-item-form">
+                <div class="row g-3">
+                  <div class="col-md-4">
+                    <label for="item-nome" class="form-label">Nome do Item</label>
+                    <input type="text" class="form-control" id="item-nome" name="nome" required>
+                  </div>
+                  <div class="col-md-3">
+                    <label for="item-categoria" class="form-label">Categoria</label>
+                    <select class="form-select" id="item-categoria" name="categoria">
+                      <option value="">Selecione...</option>
+                      <option value="Ração e Alimentação">Ração e Alimentação</option>
+                      <option value="Medicamentos">Medicamentos</option>
+                      <option value="Produtos de Limpeza">Produtos de Limpeza</option>
+                      <option value="Outros">Outros</option>
+                    </select>
+                  </div>
+                  <div class="col-md-2">
+                    <label for="item-quantidade" class="form-label">Quantidade</label>
+                    <input type="number" class="form-control" id="item-quantidade" name="quantidade" min="1" value="1">
+                  </div>
+                  <div class="col-md-2">
+                    <label for="item-urgencia" class="form-label">Urgência</label>
+                    <select class="form-select" id="item-urgencia" name="urgencia">
+                      <option value="baixa">Baixa</option>
+                      <option value="média">Média</option>
+                      <option value="alta">Alta</option>
+                    </select>
+                  </div>
+                  <div class="col-md-2">
+                    <label for="item-ativo" class="form-label">Status</label>
+                    <select class="form-select" id="item-ativo" name="ativo">
+                      <option value="true">Ativo</option>
+                      <option value="false">Inativo</option>
+                    </select>
+                  </div>
+                  <div class="col-md-1">
+                    <label class="form-label">&nbsp;</label>
+                    <button type="submit" class="btn btn-primary w-100">
+                      <i class="bi bi-plus-lg"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <label for="item-descricao" class="form-label">Descrição</label>
+                    <textarea class="form-control" id="item-descricao" name="descricao" rows="2"></textarea>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-primary">
+                      <i class="bi bi-plus-lg"></i> Adicionar Item
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- Tabela de Itens -->
+            <div class="table-admin">
+              <div class="p-3 border-bottom bg-light">
+                <h4 class="mb-0"><i class="bi bi-list-ul me-2"></i>Itens Cadastrados</h4>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-hover mb-0" id="admin-items-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Nome</th>
+                      <th>Categoria</th>
+                      <th>Quantidade</th>
+                      <th>Urgência</th>
+                      <th>Status</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Itens serão carregados dinamicamente -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aba Doações Recebidas -->
+      <div class="tab-pane fade" id="donations-received-tab">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3><i class="bi bi-heart me-2"></i>Doações Recebidas</h3>
+          </div>
+          <div class="admin-card-body">
+            <!-- Tabela de Doações -->
+            <div class="table-admin">
+              <div class="p-3 border-bottom bg-light">
+                <h4 class="mb-0"><i class="bi bi-list-ul me-2"></i>Doações de Usuários</h4>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-hover mb-0" id="admin-donations-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Item</th>
+                      <th>Doador</th>
+                      <th>Contato</th>
+                      <th>Quantidade</th>
+                      <th>Status</th>
+                      <th>Data</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Doações serão carregadas dinamicamente -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aba Doações -->
+      <div class="tab-pane fade" id="donations-tab">
+        <!-- Configuração PIX -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3><i class="bi bi-cash me-2"></i>Configuração de Doação em Dinheiro</h3>
+          </div>
+          <div class="admin-card-body">
+            <form id="donation-config-form">
+              <div class="row g-3">
+                <div class="col-md-12">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" id="pix-key" name="pix_key" placeholder="email@exemplo.com" required>
+                    <label for="pix-key">Chave PIX *</label>
+                  </div>
+                </div>
+                
+                <div class="col-md-12">
+                  <div class="form-floating">
+                    <input type="url" class="form-control" id="qr-code" name="qr_code" placeholder="https://exemplo.com/qr-code.png">
+                    <label for="qr-code">URL do QR Code</label>
+                  </div>
+                </div>
+                
+                <div class="col-12">
+                  <div class="form-floating">
+                    <textarea class="form-control" id="donation-message" name="message" rows="3" placeholder="Sua doação faz a diferença!"></textarea>
+                    <label for="donation-message">Mensagem de Doação</label>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="d-flex gap-2 mt-4">
+                <button type="submit" class="btn btn-primary btn-admin">
+                  <span class="btn-text"><i class="bi bi-save me-2"></i>Atualizar Configuração</span>
+                  <span class="loading-spinner spinner-border spinner-border-sm" role="status"></span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        
+      <!-- Aba Configurações -->
+      <div class="tab-pane fade" id="settings-tab">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3><i class="bi bi-gear me-2"></i>Configurações do Sistema</h3>
+          </div>
+          <div class="admin-card-body">
+            <div class="alert alert-info">
+              <i class="bi bi-info-circle me-2"></i>
+              Configurações gerais do sistema serão implementadas em breve.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Feedback Messages -->
+  <div id="admin-feedback" class="alert alert-admin d-none" role="alert"></div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script src="script.js?v=1.0.0"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Verificar se usuário é admin
+      if (!AuthManager.isAdmin()) {
+        window.location.href = 'index.html';
+        return;
+      }
+      
+      // Carregar estatísticas
+      loadStats();
+      
+      // Configurar formulários (apenas os que não estão no script.js)
+      setupDonationConfigForm();
+      
+      // Carregar dados ao iniciar
+      loadAdminAnimals();
+      loadAdminDonationItems();
+      loadAdminDonationsReceived();
+      
+      // Setup forms
+      setupAdminAnimalForm();
+      setupAdminDonationItemForm();
+    });
+    
+    async function loadStats() {
+      try {
+        // Animais
+        const animals = await AnimalsManager.getAll();
+        document.getElementById('stats-animals').textContent = animals.length;
+        
+        // Itens de doação
+        const items = await DonationsManager.getItems();
+        document.getElementById('stats-items').textContent = items.length;
+        
+        // Animais perdidos
+        const lostPets = await LostPetsManager.getAll();
+        document.getElementById('stats-lost').textContent = lostPets.length;
+        
+        // Usuários (placeholder)
+        document.getElementById('stats-users').textContent = '1';
+        
+      } catch (error) {
+        console.error('Erro ao carregar estatísticas:', error);
+      }
+    }
+    
+        
+    function setupDonationConfigForm() {
+      const form = document.getElementById('donation-config-form');
+      if (!form) return;
+      
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const button = form.querySelector('button[type="submit"]');
+        button.classList.add('loading');
+        button.disabled = true;
+        
+        try {
+          const formData = new FormData(form);
+          const config = Object.fromEntries(formData.entries());
+          
+          const result = await DonationsManager.updateConfig(config);
+          if (result) {
+            showAdminFeedback('Configuração atualizada com sucesso!', 'success');
+          } else {
+            showAdminFeedback('Erro ao atualizar configuração', 'danger');
+          }
+        } catch (error) {
+          console.error('Erro ao atualizar configuração:', error);
+          showAdminFeedback('Erro de conexão', 'danger');
+        } finally {
+          button.classList.remove('loading');
+          button.disabled = false;
+        }
+      });
+    }
+    
+    async function loadAdminAnimals() {
+      try {
+        const animals = await AnimalsManager.getAll();
+        const tableBody = document.querySelector('#admin-animals-table tbody');
+        
+        if (!tableBody) return;
+        
+        if (animals.length === 0) {
+          tableBody.innerHTML = `
+            <tr>
+              <td colspan="7" class="text-center text-muted py-4">
+                <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                Nenhum animal cadastrado
+              </td>
+            </tr>
+          `;
+          return;
+        }
+        
+        tableBody.innerHTML = animals.map(animal => `
+          <tr>
+            <td>${animal.id}</td>
+            <td>${animal.nome}</td>
+            <td>${animal.especie}</td>
+            <td>${animal.porte}</td>
+            <td>${animal.idade}</td>
+            <td>
+              <span class="badge ${getStatusClass(animal.status)}">${animal.status}</span>
+            </td>
+            <td>
+              <div class="admin-actions">
+                <button class="btn btn-sm btn-outline-primary" onclick="AdminUI.editAnimal(${animal.id})">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-danger" onclick="AdminUI.deleteAnimal(${animal.id})">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `).join('');
+        
+      } catch (error) {
+        console.error('Erro ao carregar animais admin:', error);
+      }
+    }
+    
+    function getStatusClass(status) {
+      switch(status) {
+        case 'Disponível': return 'bg-success';
+        case 'Adotado': return 'bg-primary';
+        case 'Em processo': return 'bg-warning';
+        default: return 'bg-secondary';
+      }
+    }
+    
+    function showAdminFeedback(message, type = 'success') {
+      const feedback = document.getElementById('admin-feedback');
+      if (!feedback) return;
+      
+      feedback.className = `alert alert-${type} alert-dismissible fade show`;
+      feedback.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      `;
+      
+      // Auto remover após 5 segundos
+      setTimeout(() => {
+        if (feedback.classList.contains('show')) {
+          feedback.classList.remove('show');
+        }
+      }, 5000);
+    }
+
+    // =========================
+    // GERENCIAMENTO DE ITENS DE DOAÇÃO
+    // =========================
+    
+    async function loadAdminDonationItems() {
+      try {
+        const response = await fetch(`${BASE_URL}/donation-items`);
+        const data = await response.json();
+        
+        if (!data.success) {
+          showAdminFeedback('Erro ao carregar itens de doação', 'danger');
+          return;
+        }
+        
+        const items = data.data;
+        const tableBody = document.querySelector('#admin-items-table tbody');
+        
+        if (!tableBody) return;
+        
+        if (items.length === 0) {
+          tableBody.innerHTML = `
+            <tr>
+              <td colspan="7" class="text-center text-muted py-4">
+                <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                Nenhum item cadastrado
+              </td>
+            </tr>
+          `;
+          return;
+        }
+        
+        tableBody.innerHTML = items.map(item => `
+          <tr>
+            <td>${item.id}</td>
+            <td>${item.nome}</td>
+            <td>${item.categoria || '-'}</td>
+            <td>${item.quantidade || 1}</td>
+            <td>
+              <span class="badge ${getUrgencyClass(item.urgencia)}">${item.urgencia || 'média'}</span>
+            </td>
+            <td>
+              <span class="badge ${item.ativo !== false ? 'bg-success' : 'bg-secondary'}">
+                ${item.ativo !== false ? 'Ativo' : 'Inativo'}
+              </span>
+            </td>
+            <td>
+              <div class="admin-actions">
+                <button class="btn btn-sm btn-outline-primary" onclick="AdminUI.editDonationItem(${item.id})">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-danger" onclick="AdminUI.deleteDonationItem(${item.id})">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `).join('');
+        
+      } catch (error) {
+        console.error('Erro ao carregar itens:', error);
+        showAdminFeedback('Erro de conexão ao carregar itens', 'danger');
+      }
+    }
+    
+    function getUrgencyClass(urgency) {
+      switch (urgency) {
+        case 'alta': return 'bg-danger';
+        case 'média': return 'bg-warning';
+        case 'baixa': return 'bg-success';
+        default: return 'bg-secondary';
+      }
+    }
+    
+    async function loadAdminDonationsReceived() {
+      try {
+        // Buscar doações e itens
+        const [donationsResponse, itemsResponse] = await Promise.all([
+          fetch(`${BASE_URL}/donations`),
+          fetch(`${BASE_URL}/donation-items`)
+        ]);
+        
+        const donationsData = await donationsResponse.json();
+        const itemsData = await itemsResponse.json();
+        
+        if (!donationsData.success || !itemsData.success) {
+          showAdminFeedback('Erro ao carregar doações recebidas', 'danger');
+          return;
+        }
+        
+        const donations = donationsData.data;
+        const items = itemsData.data;
+        
+        const tableBody = document.querySelector('#admin-donations-table tbody');
+        
+        if (!tableBody) return;
+        
+        if (donations.length === 0) {
+          tableBody.innerHTML = `
+            <tr>
+              <td colspan="8" class="text-center text-muted py-4">
+                <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                Nenhuma doação recebida
+              </td>
+            </tr>
+          `;
+          return;
+        }
+        
+        tableBody.innerHTML = donations.map(donation => {
+          const item = items.find(i => i.id === donation.item_id);
+          const itemName = item ? item.nome : `Item #${donation.item_id}`;
+          
+          return `
+            <tr>
+              <td>${donation.id}</td>
+              <td>${itemName}</td>
+              <td>${donation.nome_usuario}</td>
+              <td>${donation.contato}</td>
+              <td>${donation.quantidade}</td>
+              <td>
+                <span class="badge ${getDonationStatusClass(donation.status)}">
+                  ${getDonationStatusLabel(donation.status)}
+                </span>
+              </td>
+              <td>${formatDate(donation.data_criacao)}</td>
+              <td>
+                <div class="admin-actions">
+                  ${donation.status === 'pendente' ? `
+                    <button class="btn btn-sm btn-outline-success" onclick="AdminUI.confirmDonation(${donation.id})">
+                      <i class="bi bi-check"></i>
+                    </button>
+                  ` : ''}
+                  <button class="btn btn-sm btn-outline-primary" onclick="AdminUI.viewDonationDetails(${donation.id})">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+        
+      } catch (error) {
+        console.error('Erro ao carregar doações recebidas:', error);
+        showAdminFeedback('Erro de conexão ao carregar doações', 'danger');
+      }
+    }
+    
+    function getDonationStatusClass(status) {
+      switch (status) {
+        case 'pendente': return 'bg-warning';
+        case 'confirmado': return 'bg-info';
+        case 'concluido': return 'bg-success';
+        case 'cancelado': return 'bg-danger';
+        default: return 'bg-secondary';
+      }
+    }
+    
+    function getDonationStatusLabel(status) {
+      switch (status) {
+        case 'pendente': return 'Pendente';
+        case 'confirmado': return 'Confirmado';
+        case 'concluido': return 'Concluído';
+        case 'cancelado': return 'Cancelado';
+        default: return status;
+      }
+    }
+    
+    function formatDate(dateString) {
+      if (!dateString) return '-';
+      const date = new Date(dateString);
+      return date.toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      });
+    }
+    
+    function setupAdminDonationItemForm() {
+      const form = document.getElementById('donation-item-form');
+      if (!form) return;
+      
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const button = form.querySelector('button[type="submit"]');
+        button.classList.add('loading');
+        button.disabled = true;
+        
+        try {
+          const formData = new FormData(form);
+          const itemData = {
+            nome: formData.get('nome'),
+            categoria: formData.get('categoria'),
+            quantidade: parseInt(formData.get('quantidade')) || 1,
+            urgencia: formData.get('urgencia'),
+            descricao: formData.get('descricao'),
+            ativo: formData.get('ativo') === 'true'
+          };
+          
+          const editId = form.dataset.editId;
+          const isEdit = !!editId;
+          
+          const url = isEdit ? `${BASE_URL}/donation-items/${editId}` : `${BASE_URL}/donation-items`;
+          const method = isEdit ? 'PUT' : 'POST';
+          
+          const response = await fetch(url, {
+            method: method,
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(itemData)
+          });
+          
+          const result = await response.json();
+          
+          if (result.success) {
+            showAdminFeedback(isEdit ? 'Item atualizado com sucesso!' : 'Item adicionado com sucesso!', 'success');
+            form.reset();
+            delete form.dataset.editId;
+            
+            // Resetar botão
+            const submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.innerHTML = '<i class="bi bi-plus-lg"></i> Adicionar Item';
+            submitBtn.classList.remove('btn-success');
+            submitBtn.classList.add('btn-primary');
+            
+            // Recarregar tabela de itens
+            await loadAdminDonationItems();
+          } else {
+            showAdminFeedback(result.message || 'Erro ao salvar item', 'danger');
+          }
+          
+        } catch (error) {
+          console.error('Erro ao salvar item:', error);
+          showAdminFeedback('Erro de conexão', 'danger');
+        } finally {
+          button.classList.remove('loading');
+          button.disabled = false;
+        }
+      });
+    }
+    
+    // Objeto AdminUI para gerenciar ações
+    const AdminUI = {
+      async confirmDonation(id) {
+        try {
+          const response = await fetch(`${BASE_URL}/donations/${id}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ status: 'confirmado' })
+          });
+          
+          const result = await response.json();
+          
+          if (result.success) {
+            showAdminFeedback('Doação confirmada com sucesso!', 'success');
+            await loadAdminDonationsReceived();
+          } else {
+            showAdminFeedback(result.message || 'Erro ao confirmar doação', 'danger');
+          }
+          
+        } catch (error) {
+          console.error('Erro ao confirmar doação:', error);
+          showAdminFeedback('Erro de conexão', 'danger');
+        }
+      },
+      
+      async viewDonationDetails(id) {
+        try {
+          // Buscar detalhes da doação
+          const [donationsResponse, itemsResponse] = await Promise.all([
+            fetch(`${BASE_URL}/donations`),
+            fetch(`${BASE_URL}/donation-items`)
+          ]);
+          
+          const donationsData = await donationsResponse.json();
+          const itemsData = await itemsResponse.json();
+          
+          if (!donationsData.success || !itemsData.success) {
+            showAdminFeedback('Erro ao buscar detalhes', 'danger');
+            return;
+          }
+          
+          const donation = donationsData.data.find(d => d.id === id);
+          const item = itemsData.data.find(i => i.id === donation.item_id);
+          
+          if (!donation) {
+            showAdminFeedback('Doação não encontrada', 'danger');
+            return;
+          }
+          
+          // Criar modal de detalhes
+          const modalHtml = `
+            <div class="modal fade" id="donationDetailsModal" tabindex="-1">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Detalhes da Doação #${donation.id}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row mb-3">
+                      <div class="col-6"><strong>Item:</strong></div>
+                      <div class="col-6">${item ? item.nome : `Item #${donation.item_id}`}</div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-6"><strong>Doador:</strong></div>
+                      <div class="col-6">${donation.nome_usuario}</div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-6"><strong>Contato:</strong></div>
+                      <div class="col-6">${donation.contato}</div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-6"><strong>Quantidade:</strong></div>
+                      <div class="col-6">${donation.quantidade}</div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-6"><strong>Status:</strong></div>
+                      <div class="col-6">
+                        <span class="badge ${getDonationStatusClass(donation.status)}">
+                          ${getDonationStatusLabel(donation.status)}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-6"><strong>Data:</strong></div>
+                      <div class="col-6">${formatDate(donation.data_criacao)}</div>
+                    </div>
+                    ${donation.mensagem ? `
+                      <div class="row mb-3">
+                        <div class="col-12"><strong>Mensagem:</strong></div>
+                        <div class="col-12">${donation.mensagem}</div>
+                      </div>
+                    ` : ''}
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    ${donation.status === 'pendente' ? `
+                      <button type="button" class="btn btn-success" onclick="AdminUI.confirmDonation(${donation.id})">
+                        <i class="bi bi-check me-2"></i>Confirmar Doação
+                      </button>
+                    ` : ''}
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+          
+          // Remover modal existente se houver
+          const existingModal = document.getElementById('donationDetailsModal');
+          if (existingModal) {
+            existingModal.remove();
+          }
+          
+          // Adicionar novo modal
+          document.body.insertAdjacentHTML('beforeend', modalHtml);
+          
+          // Mostrar modal
+          const modal = new bootstrap.Modal(document.getElementById('donationDetailsModal'));
+          modal.show();
+          
+        } catch (error) {
+          console.error('Erro ao visualizar detalhes:', error);
+          showAdminFeedback('Erro ao carregar detalhes', 'danger');
+        }
+      },
+      
+      async editDonationItem(id) {
+        try {
+          // Buscar item para edição
+          const response = await fetch(`${BASE_URL}/donation-items`);
+          const data = await response.json();
+          
+          if (!data.success) {
+            showAdminFeedback('Erro ao buscar item', 'danger');
+            return;
+          }
+          
+          const item = data.data.find(i => i.id === id);
+          if (!item) {
+            showAdminFeedback('Item não encontrado', 'danger');
+            return;
+          }
+          
+          // Preencher formulário
+          const form = document.getElementById('donation-item-form');
+          form.querySelector('#item-nome').value = item.nome;
+          form.querySelector('#item-categoria').value = item.categoria || '';
+          form.querySelector('#item-quantidade').value = item.quantidade || 1;
+          form.querySelector('#item-urgencia').value = item.urgencia || 'média';
+          form.querySelector('#item-ativo').value = item.ativo !== false ? 'true' : 'false';
+          form.querySelector('#item-descricao').value = item.descricao || '';
+          
+          // Adicionar ID ao formulário para edição
+          form.dataset.editId = id;
+          
+          // Mudar texto do botão
+          const submitBtn = form.querySelector('button[type="submit"]');
+          submitBtn.innerHTML = '<i class="bi bi-save"></i>';
+          submitBtn.classList.remove('btn-primary');
+          submitBtn.classList.add('btn-success');
+          
+          // Rolar para o formulário
+          form.scrollIntoView({ behavior: 'smooth' });
+          
+          showAdminFeedback('Edite o item e clique para salvar', 'info');
+          
+        } catch (error) {
+          console.error('Erro ao editar item:', error);
+          showAdminFeedback('Erro ao editar item', 'danger');
+        }
+      },
+      
+      async deleteDonationItem(id) {
+        if (!confirm('Tem certeza que deseja remover este item?')) {
+          return;
+        }
+        
+        try {
+          const response = await fetch(`${BASE_URL}/donation-items/${id}`, {
+            method: 'DELETE'
+          });
+          
+          const result = await response.json();
+          
+          if (result.success) {
+            showAdminFeedback('Item removido com sucesso!', 'success');
+            await loadAdminDonationItems();
+            
+            // SINCRONIZAÇÃO: Atualizar frontend público
+            syncDonationItemsToPublic();
+          } else {
+            showAdminFeedback(result.message || 'Erro ao remover item', 'danger');
+          }
+          
+        } catch (error) {
+          console.error('Erro ao remover item:', error);
+          showAdminFeedback('Erro de conexão', 'danger');
+        }
+      }
+    };
+    
+    function syncDonationItemsToPublic() {
+      // Notificar outras páginas que os itens de doação foram atualizados
+      const timestamp = Date.now().toString();
+      localStorage.setItem('donation_items_updated', timestamp);
+      
+      // Forçar atualização imediata se estiver na página de doação
+      if (window.location.pathname.includes('doar.html')) {
+        setTimeout(() => {
+          if (typeof PageInitializer !== 'undefined' && PageInitializer.loadDonationItems) {
+            PageInitializer.loadDonationItems();
+          }
+        }, 100);
+      }
+      
+      // Disparar evento customizado para outras abas escutarem
+      window.dispatchEvent(new CustomEvent('donationItemsUpdated', {
+        detail: { timestamp: parseInt(timestamp) }
+      }));
+      
+      console.log('Sincronização disparada - Admin para Frontend Público (Itens de Doação)');
+    }
+  </script>
 </body>
 </html>

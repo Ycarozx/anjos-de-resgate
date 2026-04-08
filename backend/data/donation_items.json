@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "nome": "Ração 20kg",
+    "categoria": "Ração e Alimentação",
+    "urgencia": "Alta",
+    "descricao": "Ração para cães adultos de porte médio/grande. Preferência por marcas de boa qualidade."
+  },
+  {
+    "id": 2,
+    "nome": "Cobertores",
+    "categoria": "Outros",
+    "urgencia": "Média",
+    "descricao": "Cobertores e mantas para aquecer os animais, especialmente no inverno."
+  },
+  {
+    "id": 3,
+    "nome": "Medicamentos diversos",
+    "categoria": "Medicamentos",
+    "urgencia": "Alta",
+    "descricao": "Vermífugos, antipulgas, antibióticos (com prescrição), analgésicos."
+  },
+  {
+    "id": 4,
+    "nome": "Produtos de limpeza",
+    "categoria": "Produtos de Limpeza",
+    "urgencia": "Média",
+    "descricao": "Água sanitária, desinfetante, sabão em pó, luvas, sacos de lixo."
+  },
+  {
+    "id": 5,
+    "nome": "Brinquedos para cães e gatos",
+    "categoria": "Brinquedos",
+    "urgencia": "Baixa",
+    "descricao": "Bolinhas, arranhadores, mordedores para enriquecimento ambiental."
+  },
+  {
+    "id": 6,
+    "nome": "Ração 20KG :(",
+    "categoria": "Ração e Alimentação",
+    "urgencia": "Alta",
+    "descricao": ""
+  }
+]

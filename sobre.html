@@ -1,103 +1,358 @@
 <!DOCTYPE html>
-<!--
-  sobre.html
-  Página “Sobre” da ONG (protótipo MVP).
-  Como abrir: basta abrir index.html e navegar pelo menu.
-  Sem backend: conteúdo fixo/estático (pode editar textos e imagens aqui).
--->
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sobre os Anjos de Resgate</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Sobre - Anjos de Resgate</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles-bootstrap.css">
 </head>
 <body>
-  <div class="prototype-banner" role="status" aria-live="polite">
-    Protótipo — sem backend. Sistema de login e dados salvos no navegador; para produção é necessária autenticação server-side e banco de dados.
-  </div>
-
+  <!-- Header Principal -->
   <header class="header">
     <div class="header-inner">
+      <!-- Logo -->
       <a href="index.html" class="logo" aria-label="Ir para página inicial">
         <img src="assets/anjos-logo.png" alt="Associação Anjos de Resgate" class="logo-img">
         <span class="logo-text">Anjos de Resgate</span>
       </a>
+      
+      <!-- Navegação Principal -->
       <nav class="nav" aria-label="Menu principal">
         <ul>
           <li><a href="index.html">Início</a></li>
-          <li><a href="index.html#animais">Animais</a></li>
+          <li><a href="#animais">Animais</a></li>
           <li><a href="lost-pets.html">Animais Perdidos</a></li>
-          <li><a href="sobre.html" aria-current="page">Sobre</a></li>
+          <li><a href="sobre.html" class="active">Sobre</a></li>
           <li><a href="doar.html">Doar</a></li>
         </ul>
       </nav>
-      <a href="index.html#animais" class="btn btn-primary header-cta">Adotar agora</a>
-      <button type="button" class="menu-toggle" aria-label="Abrir menu" aria-expanded="false"></button>
+      
+      <!-- Ações do Header -->
+      <div class="header-actions">
+        <a href="login.html" class="btn btn-secondary header-login" id="btn-login">Login</a>
+        <a href="register.html" class="btn btn-primary header-register" id="btn-register">Cadastro</a>
+      </div>
+      
+      <!-- Menu Mobile Toggle -->
+      <button type="button" class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+        <span>Menu</span>
+      </button>
     </div>
   </header>
 
+  <!-- Main Content -->
   <main class="main">
-    <!-- Hero da página Sobre, inspirado no layout enviado -->
-    <section class="section sobre-hero">
-      <div class="sobre-hero-logo-wrap">
-        <div class="sobre-hero-logo-circle">
-          <img src="assets/anjos-logo.png" alt="Logo Anjos de Resgate" class="sobre-hero-logo-img">
+    <!-- Hero Section -->
+    <section class="about-hero">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <div class="hero-content">
+              <div class="hero-logo mb-4">
+                <img src="assets/anjos-logo.png" alt="Anjos de Resgate" class="hero-logo-img">
+              </div>
+              <h1 class="display-4 fw-bold mb-4">Sobre os <span class="text-primary">Anjos de Resgate</span></h1>
+              <p class="lead mb-4">Transformando vidas, uma patinha de cada vez. Somos uma organização dedicada a resgatar, cuidar e encontrar lares amorosos para animais em necessidade.</p>
+              <div class="hero-stats">
+                <div class="stat-item">
+                  <span class="stat-number">500+</span>
+                  <span class="stat-label">Animais Resgatados</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number">300+</span>
+                  <span class="stat-label">Adoções Felizes</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number">5</span>
+                  <span class="stat-label">Anos de Atuação</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="hero-image">
+              <img src="https://images.unsplash.com/photo-1601758228041-3a3e691bb262?w=600&h=400&fit=crop" alt="Animais no abrigo" class="img-fluid rounded-3 shadow">
+            </div>
+          </div>
         </div>
       </div>
-      <h1 class="sobre-hero-title">Sobre os <span>Anjos de Resgate</span></h1>
-      <p class="sobre-hero-subtitle">Transformando vidas, uma patinha de cada vez</p>
     </section>
 
-    <!-- Conteúdo principal - Nossa História -->
-    <section class="section content-card sobre-conteudo">
-      <h2 class="sobre-section-title">
-        <span class="sobre-section-icon">♡</span>
-        Nossa História
-      </h2>
-      <p>
-        A ONG <strong>Anjos de Resgate</strong> nasceu do amor incondicional aos animais e do compromisso em fazer a diferença na
-        vida de pets abandonados e em situação de vulnerabilidade. Localizada em São Sebastião do Paraíso, nossa
-        história começou com um grupo de voluntários dedicados que não podiam ficar indiferentes ao sofrimento dos
-        animais de rua.
-      </p>
-      <p>
-        O que começou com resgates esporádicos, rapidamente se transformou em uma missão de vida. Percebemos
-        que não bastava apenas resgatar – era preciso criar uma estrutura para cuidar, tratar, reabilitar e encontrar lares
-        amorosos para cada animal que cruzasse nosso caminho.
-      </p>
-      <p>
-        Hoje, somos uma comunidade de voluntários, veterinários, doadores e famílias adotivas que trabalham juntos
-        para dar uma segunda chance a dezenas de animais todos os anos. Cada resgate é uma história de superação,
-        cada adoção é uma vitória do amor sobre o abandono.
-      </p>
+    <!-- Nossa História -->
+    <section class="py-5 bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="section-header text-center mb-5">
+              <h2 class="display-5 fw-bold mb-3">Nossa História</h2>
+              <p class="lead text-muted">Como tudo começou e nossa jornada até aqui</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="story-content">
+              <p class="lead">A Anjos de Resgate nasceu em 2019, a partir do sonho de um grupo de amigos que compartilhava o amor incondicional por animais. Tudo começou com pequenos resgates em ruas e praças, mas logo percebemos que havia uma necessidade muito maior.</p>
+              
+              <p>Hoje, mantemos um abrigo completo que oferece cuidados veterinários, alimentação adequada, e muito amor para cada animal que passa por nossas portas. Nossa equipe é formada por voluntários dedicados e profissionais que trabalham incansavelmente para dar uma segunda chance a quem precisa.</p>
+              
+              <blockquote class="blockquote border-0 ps-4 border-start border-primary border-3">
+                <p class="mb-0">"Cada animal resgatado é uma vida transformada, uma história de superação e um lembrete do poder do amor e da compaixão."</p>
+                <footer class="blockquote-footer">Fundadora da Anjos de Resgate</footer>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Missão, Visão e Valores -->
+    <section class="py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="section-header text-center mb-5">
+              <h2 class="display-5 fw-bold mb-3">Nossa Identidade</h2>
+              <p class="lead text-muted">O que nos move e guia nosso trabalho diário</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4 text-center">
+                <div class="icon-box mb-3">
+                  <i class="bi bi-bullseye text-primary fs-1"></i>
+                </div>
+                <h4 class="fw-bold mb-3">Missão</h4>
+                <p class="text-muted">Resgatar, proteger e encontrar lares amorosos para animais abandonados, promovendo bem-estar e conscientização sobre a importância da guarda responsável.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4 text-center">
+                <div class="icon-box mb-3">
+                  <i class="bi bi-eye text-primary fs-1"></i>
+                </div>
+                <h4 class="fw-bold mb-3">Visão</h4>
+                <p class="text-muted">Ser referência em proteção animal, criando uma comunidade onde todos os animais sejam tratados com dignidade, respeito e amor.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4 text-center">
+                <div class="icon-box mb-3">
+                  <i class="bi bi-heart text-primary fs-1"></i>
+                </div>
+                <h4 class="fw-bold mb-3">Valores</h4>
+                <p class="text-muted">Compaixão, responsabilidade, transparência, dedicação e amor incondicional à vida animal em todas as nossas ações.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nossa Equipe -->
+    <section class="py-5 bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="section-header text-center mb-5">
+              <h2 class="display-5 fw-bold mb-3">Nossa Equipe</h2>
+              <p class="lead text-muted">As pessoas que fazem tudo isso acontecer</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-3">
+            <div class="team-member text-center">
+              <div class="member-avatar mb-3">
+                <img src="https://source.unsplash.com/200x200/?woman,portrait" alt="Membro da equipe" class="rounded-circle img-fluid">
+              </div>
+              <h5 class="fw-bold">Fundadora</h5>
+              <p class="text-muted small">Liderança e Visão</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="team-member text-center">
+              <div class="member-avatar mb-3">
+                <img src="https://source.unsplash.com/200x200/?man,portrait" alt="Membro da equipe" class="rounded-circle img-fluid">
+              </div>
+              <h5 class="fw-bold">Veterinário</h5>
+              <p class="text-muted small">Saúde e Bem-estar</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="team-member text-center">
+              <div class="member-avatar mb-3">
+                <img src="https://source.unsplash.com/200x200/?woman,smiling" alt="Membro da equipe" class="rounded-circle img-fluid">
+              </div>
+              <h5 class="fw-bold">Coordenadora</h5>
+              <p class="text-muted small">Adoções e Lares</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="team-member text-center">
+              <div class="member-avatar mb-3">
+                <img src="https://source.unsplash.com/200x200/?man,professional" alt="Membro da equipe" class="rounded-circle img-fluid">
+              </div>
+              <h5 class="fw-bold">Voluntário</h5>
+              <p class="text-muted small">Cuidados Diários</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Como Ajudar -->
+    <section class="py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="section-header text-center mb-5">
+              <h2 class="display-5 fw-bold mb-3">Como Você Pode Ajudar</h2>
+              <p class="lead text-muted">Existem muitas formas de fazer parte dessa causa</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="help-card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <div class="help-icon mb-3">
+                  <i class="bi bi-house-heart text-primary fs-1"></i>
+                </div>
+                <h4 class="fw-bold mb-3">Adote</h4>
+                <p class="text-muted">Dê um lar amoroso para um animal que precisa. A adoção é a melhor forma de ajudar!</p>
+                <a href="index.html#animais" class="btn btn-primary mt-3">Ver Animais</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="help-card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <div class="help-icon mb-3">
+                  <i class="bi bi-cash text-primary fs-1"></i>
+                </div>
+                <h4 class="fw-bold mb-3">Doe</h4>
+                <p class="text-muted">Contribua com doações em dinheiro ou itens essenciais para manter nosso abrigo funcionando.</p>
+                <a href="doar.html" class="btn btn-primary mt-3">Fazer Doação</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="help-card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <div class="help-icon mb-3">
+                  <i class="bi bi-people text-primary fs-1"></i>
+                </div>
+                <h4 class="fw-bold mb-3">Voluntarie-se</h4>
+                <p class="text-muted">Dedique seu tempo e talento. Precisamos de ajuda em diversas áreas!</p>
+                <a href="register.html" class="btn btn-primary mt-3">Cadastrar Voluntário</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contato -->
+    <section class="py-5 bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="section-header text-center mb-5">
+              <h2 class="display-5 fw-bold mb-3">Entre em Contato</h2>
+              <p class="lead text-muted">Estamos sempre prontos para conversar e receber ajuda</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="contact-info text-center">
+              <div class="row g-4">
+                <div class="col-md-4">
+                  <div class="contact-item">
+                    <i class="bi bi-envelope text-primary fs-2 mb-2"></i>
+                    <h5>E-mail</h5>
+                    <p class="text-muted">contato@anjosderesgate.org</p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="contact-item">
+                    <i class="bi bi-phone text-primary fs-2 mb-2"></i>
+                    <h5>Telefone</h5>
+                    <p class="text-muted">(11) 1234-5678</p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="contact-item">
+                    <i class="bi bi-geo-alt text-primary fs-2 mb-2"></i>
+                    <h5>Endereço</h5>
+                    <p class="text-muted">Rua das Flores, 123<br>São Paulo, SP</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
+  <!-- Footer -->
   <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-col">
-        <h3>Anjos de Resgate</h3>
-        <p>Associação de proteção animal.</p>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="footer-logo">
+            <img src="assets/anjos-logo.png" alt="Anjos de Resgate" class="footer-logo-img">
+            <h5>Anjos de Resgate</h5>
+            <p>Transformando vidas, uma patinha de cada vez.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <h6>Links Rápidos</h6>
+          <ul class="footer-links">
+            <li><a href="index.html">Início</a></li>
+            <li><a href="index.html#animais">Animais</a></li>
+            <li><a href="lost-pets.html">Animais Perdidos</a></li>
+            <li><a href="sobre.html">Sobre</a></li>
+            <li><a href="doar.html">Doar</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h6>Contato</h6>
+          <ul class="footer-contact">
+            <li><i class="bi bi-envelope"></i> contato@anjosderesgate.org</li>
+            <li><i class="bi bi-phone"></i> (11) 1234-5678</li>
+            <li><i class="bi bi-geo-alt"></i> São Paulo, SP</li>
+          </ul>
+        </div>
       </div>
-      <div class="footer-col">
-        <h4>Links</h4>
-        <ul>
-          <li><a href="index.html#animais">Ver animais</a></li>
-          <li><a href="doar.html">Doar</a></li>
-          <li><a href="admin/login.html">Acesso moderadores</a></li>
-        </ul>
+      <div class="footer-bottom">
+        <p>&copy; 2024 Anjos de Resgate. Todos os direitos reservados.</p>
       </div>
     </div>
-    <p class="footer-copy">&copy; Protótipo – Plataforma de Adoção de Animais (PIBEC)</p>
   </footer>
 
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
   <script src="script.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      if (typeof initCommonPage === 'function') initCommonPage();
-    });
-  </script>
 </body>
 </html>
-

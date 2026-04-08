@@ -1,0 +1,1239 @@
+/*
+  Plataforma de Adoção de Animais - Bootstrap Integration
+  Mantendo identidade visual original com Bootstrap 5
+  Conectado perfeitamente com o backend novo
+*/
+
+/* =========================
+   VARIÁVEIS DE DESIGN (MANTIDAS)
+   ========================= */
+:root {
+  /* Cores Principais - Mantendo identidade original */
+  --cor-primaria: #245a92;            /* azul principal (botões, links) */
+  --cor-primaria-escura: #12335b;     /* azul mais profundo para textos de destaque */
+  --cor-secundaria: #245a92;          /* azul secundário */
+  --cor-destaque: #ffd36c;            /* amarelo claro inspirado na auréola */
+  --cor-fundo: #f8f9fa;                /* fundo neutro claro (similar ao original) */
+  --cor-fundo-card: #ffffff;          /* cartões em branco puro */
+  --cor-texto: #1b2433;               /* texto principal */
+  --cor-texto-suave: #6c757d;          /* texto secundário */
+  --cor-borda: #dee2e6;               /* bordas suaves */
+  --cor-erro: #c1121f;                /* cor de erro */
+  --cor-sucesso: #28a745;             /* cor de sucesso */
+  
+  /* Design System */
+  --sombra: 0 2px 8px rgba(13, 35, 75, 0.08);
+  --sombra-hover: 0 10px 28px rgba(36, 90, 146, 0.18);
+  --raio: 8px;
+  --raio-grande: 12px;
+  --raio-redondo: 50%;
+  --transicao: 0.2s ease;
+}
+
+/* =========================
+   BOOTSTRAP CUSTOMIZATION
+   ========================= */
+.btn-primary {
+  background-color: var(--cor-primaria) !important;
+  border-color: var(--cor-primaria) !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--cor-primaria-escura) !important;
+  border-color: var(--cor-primaria-escura) !important;
+}
+
+.btn-secondary {
+  background-color: var(--cor-secundaria) !important;
+  border-color: var(--cor-secundaria) !important;
+  color: white !important;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background-color: var(--cor-primaria) !important;
+  border-color: var(--cor-primaria) !important;
+  color: white !important;
+}
+
+.btn-outline-primary {
+  color: var(--cor-primaria) !important;
+  border-color: var(--cor-primaria) !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+  background-color: var(--cor-primaria) !important;
+  border-color: var(--cor-primaria) !important;
+  color: white !important;
+}
+
+.btn-danger {
+  background-color: var(--cor-erro) !important;
+  border-color: var(--cor-erro) !important;
+}
+
+.btn-success {
+  background-color: var(--cor-sucesso) !important;
+  border-color: var(--cor-sucesso) !important;
+}
+
+/* =========================
+   HEADER E NAVEGAÇÃO
+   ========================= */
+.header {
+  background: var(--cor-fundo-card) !important;
+  box-shadow: var(--sombra) !important;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.8rem 1.25rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--cor-primaria);
+  text-decoration: none;
+  transition: color var(--transicao);
+}
+
+.logo:hover {
+  color: var(--cor-primaria-escura);
+}
+
+.logo-img {
+  height: 36px;
+  width: 36px;
+  display: block;
+  border-radius: var(--raio-redondo);
+  object-fit: cover;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.67);
+}
+
+.logo-text {
+  white-space: nowrap;
+  color: var(--cor-primaria-escura);
+}
+
+.nav {
+  justify-self: center;
+}
+
+.nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.nav a {
+  color: var(--cor-texto);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--transicao);
+}
+
+.nav a:hover {
+  color: var(--cor-primaria);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: var(--raio);
+}
+
+/* =========================
+   BANNER PRINCIPAL
+   ========================= */
+.banner {
+  position: relative;
+  height: 380px;
+  overflow: hidden;
+}
+
+.banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.5) 0%, transparent 60%);
+}
+
+.banner-content {
+  position: absolute;
+  left: 1.5rem;
+  bottom: 2rem;
+  color: white;
+  max-width: 600px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.banner-content h1 {
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  margin-bottom: 0.5rem;
+}
+
+.banner-content p {
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+}
+
+/* =========================
+   SEÇÕES E CARDS
+   ========================= */
+.section {
+  padding: 2rem 0;
+}
+
+.section-title {
+  font-size: 1.75rem;
+  color: var(--cor-primaria-escura);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.content-card {
+  background: var(--cor-fundo-card);
+  border-radius: var(--raio-grande);
+  box-shadow: var(--sombra);
+  padding: 2rem;
+  border: 1px solid var(--cor-borda);
+}
+
+.filters-section {
+  background: var(--cor-fundo-card);
+  border-radius: var(--raio-grande);
+  padding: 2rem;
+  margin: 2rem 1rem;
+  border: 1px solid var(--cor-borda);
+}
+
+.filters-and-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.filters-sidebar {
+  position: sticky;
+  top: 100px;
+}
+
+.filters-wrapper {
+  background: rgba(36, 90, 146, 0.05);
+  padding: 1.5rem;
+  border-radius: var(--raio-grande);
+  border: 1px solid var(--cor-borda);
+}
+
+.filter-group {
+  margin-bottom: 1rem;
+}
+
+.filter-group:last-child {
+  margin-bottom: 0;
+}
+
+.filter-group label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+  color: var(--cor-primaria-escura);
+}
+
+.filter-group input,
+.filter-group select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  font-size: 1rem;
+  transition: border-color var(--transicao);
+}
+
+.filter-group input:focus,
+.filter-group select:focus {
+  outline: none;
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 0 3px rgba(36, 90, 146, 0.2);
+}
+
+/* Grid de Cards */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: var(--cor-fundo-card);
+  border-radius: var(--raio-grande);
+  overflow: hidden;
+  box-shadow: var(--sombra);
+  transition: all var(--transicao);
+  border: 1px solid var(--cor-borda);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra-hover);
+}
+
+.card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  color: var(--cor-primaria-escura);
+  margin-bottom: 0.5rem;
+}
+
+.card-meta {
+  font-size: 0.9rem;
+  color: var(--cor-texto-suave);
+  margin-bottom: 1rem;
+}
+
+.card-description {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+/* =========================
+   FORMULÁRIOS COM BOOTSTRAP
+   ========================= */
+.form-adocao {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--cor-primaria-escura);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  font-size: 1rem;
+  transition: border-color var(--transicao);
+  background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 0 3px rgba(36, 90, 146, 0.2);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+/* =========================
+   LOGIN/CADASTRO MELHORADOS
+   ========================= */
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--cor-fundo) 0%, rgba(36, 90, 146, 0.1) 100%);
+  padding: 2rem;
+}
+
+.auth-card {
+  background: var(--cor-fundo-card);
+  border-radius: var(--raio-grande);
+  box-shadow: var(--sombra-hover);
+  padding: 3rem;
+  width: 100%;
+  max-width: 450px;
+  border: 1px solid var(--cor-borda);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.auth-header h1 {
+  color: var(--cor-primaria-escura);
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+}
+
+.auth-header p {
+  color: var(--cor-texto-suave);
+  margin-bottom: 0;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--cor-borda);
+}
+
+.auth-footer p {
+  color: var(--cor-texto-suave);
+  margin-bottom: 0.5rem;
+}
+
+.auth-footer a {
+  color: var(--cor-primaria);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   ÁREA ADMINISTRATIVA MELHORADA
+   ========================= */
+.admin-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.admin-header {
+  background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-primaria-escura) 100%);
+  color: white;
+  padding: 2rem;
+  border-radius: var(--raio-grande);
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--sombra-hover);
+}
+
+.admin-header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.admin-header p {
+  margin: 0.5rem 0 0;
+  opacity: 0.9;
+}
+
+.admin-nav {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--cor-borda);
+  padding-bottom: 0;
+}
+
+.admin-nav button {
+  background: none;
+  border: none;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all var(--transicao);
+  font-weight: 500;
+  color: var(--cor-texto-suave);
+}
+
+.admin-nav button:hover {
+  color: var(--cor-primaria);
+  background: rgba(36, 90, 146, 0.05);
+}
+
+.admin-nav button.active {
+  border-bottom-color: var(--cor-primaria);
+  color: var(--cor-primaria);
+  font-weight: 600;
+}
+
+.admin-section {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.admin-section.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+.admin-form {
+  background: var(--cor-fundo-card);
+  padding: 2rem;
+  border-radius: var(--raio-grande);
+  margin-bottom: 2rem;
+  border: 1px solid var(--cor-borda);
+  box-shadow: var(--sombra);
+}
+
+.admin-form h3 {
+  color: var(--cor-primaria-escura);
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+}
+
+.admin-table-container {
+  background: var(--cor-fundo-card);
+  border-radius: var(--raio-grande);
+  overflow: hidden;
+  border: 1px solid var(--cor-borda);
+  box-shadow: var(--sombra);
+}
+
+.admin-table {
+  width: 100%;
+  margin: 0;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--cor-borda);
+  vertical-align: middle;
+}
+
+.admin-table th {
+  background: rgba(36, 90, 146, 0.05);
+  font-weight: 600;
+  color: var(--cor-primaria-escura);
+  border-bottom: 2px solid var(--cor-primaria);
+}
+
+.admin-table tr:hover {
+  background: rgba(36, 90, 146, 0.02);
+}
+
+.admin-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.admin-actions .btn {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+/* =========================
+   DOAÇÕES
+   ========================= */
+.donation-hero {
+  background: var(--cor-primaria);
+  color: white;
+  padding: 3.25rem 0;
+  text-align: center;
+}
+
+.donation-hero h1 {
+  font-size: 2.25rem;
+  margin-bottom: 1rem;
+}
+
+.donation-hero p {
+  font-size: 1.125rem;
+  opacity: 0.9;
+}
+
+.donation-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--cor-borda);
+}
+
+.donation-tab {
+  padding: 1rem 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--cor-texto-suave);
+  border-bottom: 3px solid transparent;
+  transition: all var(--transicao);
+}
+
+.donation-tab:hover {
+  color: var(--cor-primaria);
+  background: rgba(36, 90, 146, 0.05);
+}
+
+.donation-tab.active {
+  color: var(--cor-primaria);
+  border-bottom-color: var(--cor-primaria);
+  font-weight: 600;
+}
+
+.donation-content {
+  display: none;
+}
+
+.donation-content.active {
+  display: block;
+}
+
+.donation-qr {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(36, 90, 146, 0.05);
+  border-radius: var(--raio-grande);
+  margin-bottom: 2rem;
+  border: 1px solid var(--cor-borda);
+}
+
+.donation-qr img {
+  max-width: 200px;
+  height: auto;
+  margin-bottom: 1rem;
+  border-radius: var(--raio);
+}
+
+.donation-items {
+  display: grid;
+  gap: 1rem;
+}
+
+.donation-item {
+  background: var(--cor-fundo-card);
+  padding: 1.5rem;
+  border-radius: var(--raio-grande);
+  border-left: 4px solid var(--cor-primaria);
+  border: 1px solid var(--cor-borda);
+  box-shadow: var(--sombra);
+}
+
+.donation-item h3 {
+  color: var(--cor-primaria-escura);
+  margin-bottom: 0.5rem;
+}
+
+.donation-item .urgencia {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--raio);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.donation-item .urgencia.alta {
+  background: rgba(193, 18, 31, 0.1);
+  color: var(--cor-erro);
+}
+
+.donation-item .urgencia.media {
+  background: rgba(255, 211, 108, 0.2);
+  color: #856404;
+}
+
+.donation-item .urgencia.baixa {
+  background: rgba(40, 167, 69, 0.1);
+  color: var(--cor-sucesso);
+}
+
+/* =========================
+   ANIMAIS PERDIDOS
+   ========================= */
+.lost-pets-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.lost-pet-card {
+  border-left-color: var(--cor-erro);
+}
+
+.lost-pet-card .tipo {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--raio);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.lost-pet-card .tipo.perdido {
+  background: rgba(193, 18, 31, 0.1);
+  color: var(--cor-erro);
+}
+
+.lost-pet-card .tipo.encontrado {
+  background: rgba(40, 167, 69, 0.1);
+  color: var(--cor-sucesso);
+}
+
+/* =========================
+   PÁGINAS RECONSTRUÍDAS
+   ========================= */
+
+/* Doar.html */
+.donation-hero {
+  background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-primaria-escura) 100%);
+  color: white;
+  padding: 6rem 0;
+  text-align: center;
+}
+
+.donation-hero .hero-icon {
+  font-size: 4rem;
+  opacity: 0.8;
+}
+
+.donation-hero .display-4 {
+  font-weight: 700;
+}
+
+.donation-hero .lead {
+  font-size: 1.25rem;
+  opacity: 0.9;
+}
+
+/* Seção Dinheiro */
+.donation-money-section {
+  background: white;
+}
+
+.donation-money-section .section-icon {
+  color: var(--cor-primaria);
+  opacity: 0.8;
+}
+
+.donation-qr {
+  text-align: center;
+}
+
+.donation-qr img {
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+
+.pix-info .input-group {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Seção Itens */
+.donation-items-section {
+  background: var(--cor-fundo);
+}
+
+.donation-items-section .section-icon {
+  color: var(--cor-primaria);
+  opacity: 0.8;
+}
+
+.items-grid .card {
+  transition: var(--transicao);
+}
+
+.items-grid .card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-hover);
+}
+
+.item-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--raio-redondo);
+  background: rgba(36, 90, 146, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.donation-item-card {
+  transition: var(--transicao);
+  border: 1px solid var(--cor-borda) !important;
+}
+
+.donation-item-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra-hover);
+  border-color: var(--cor-primaria) !important;
+}
+
+.donation-item-card .btn-primary {
+  background: var(--cor-primaria);
+  border-color: var(--cor-primaria);
+  transition: var(--transicao);
+}
+
+.donation-item-card .btn-primary:hover {
+  background: var(--cor-primaria-escura);
+  border-color: var(--cor-primaria-escura);
+  transform: translateY(-1px);
+}
+
+/* Sobre.html */
+.about-hero {
+  padding: 6rem 0;
+  background: linear-gradient(135deg, rgba(36, 90, 146, 0.05) 0%, rgba(36, 90, 146, 0.1) 100%);
+}
+
+.about-hero .hero-logo {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.about-hero .hero-logo-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border: 3px solid var(--cor-primaria);
+}
+
+.hero-stats {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.hero-stats .stat-item {
+  text-align: center;
+}
+
+.hero-stats .stat-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--cor-primaria);
+}
+
+.hero-stats .stat-label {
+  font-size: 0.875rem;
+  color: var(--cor-texto-suave);
+}
+
+.hero-image img {
+  border-radius: var(--raio-grande);
+}
+
+.story-content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.story-content .lead {
+  font-weight: 500;
+  color: var(--cor-primaria-escura);
+}
+
+.team-member .member-avatar {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: var(--raio-redondo);
+  border: 4px solid var(--cor-primaria);
+}
+
+.help-card {
+  transition: var(--transicao);
+}
+
+.help-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra-hover);
+}
+
+.help-icon {
+  color: var(--cor-primaria);
+}
+
+.contact-item {
+  text-align: center;
+  padding: 1rem;
+}
+
+.contact-item i {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+/* Lost-pets.html */
+.lost-pets-hero {
+  background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-primaria-escura) 100%);
+  color: white;
+  padding: 6rem 0;
+  text-align: center;
+}
+
+.lost-pets-hero .hero-icon {
+  font-size: 4rem;
+  opacity: 0.8;
+}
+
+.lost-pets-hero .hero-actions {
+  margin-top: 2rem;
+}
+
+.filter-card {
+  background: white;
+  border-radius: var(--raio-grande);
+  padding: 1.5rem;
+  box-shadow: var(--sombra);
+  border: 1px solid var(--cor-borda);
+}
+
+.lost-pets-grid .lost-pet-card {
+  transition: var(--transicao);
+}
+
+.lost-pets-grid .lost-pet-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-hover);
+}
+
+.lost-pets-grid .card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+.lost-pets-grid .badge {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.contact-info .btn {
+  font-size: 0.875rem;
+}
+
+/* =========================
+   FOOTER
+   ========================= */
+.footer {
+  background: var(--cor-primaria-escura);
+  color: white;
+  padding: 4rem 0 2rem;
+  margin-top: 4rem;
+}
+
+.footer-logo-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.footer h5 {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+.footer h6 {
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+}
+
+.footer-links li {
+  margin-bottom: 0.75rem;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: white;
+}
+
+.footer-contact {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+}
+
+.footer-contact li {
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-contact i {
+  color: var(--cor-destaque);
+  width: 20px;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 2rem;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.footer-bottom p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.footer-copy {
+  margin-top: 1rem;
+  opacity: 0.8;
+}
+
+/* =========================
+   UTILITÁRIOS
+   ========================= */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.muted {
+  color: var(--cor-texto-suave);
+}
+
+.small {
+  font-size: 0.875rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: var(--cor-texto-suave);
+}
+
+.empty-state h3 {
+  margin-bottom: 1rem;
+  color: var(--cor-texto);
+}
+
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.error {
+  color: var(--cor-erro);
+}
+
+.success {
+  color: var(--cor-sucesso);
+}
+
+/* =========================
+   RESPONSIVO
+   ========================= */
+@media (max-width: 768px) {
+  .header-inner {
+    grid-template-columns: auto auto;
+    gap: 0.5rem;
+  }
+  
+  .nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--cor-fundo-card);
+    box-shadow: var(--sombra);
+    padding: 1rem;
+  }
+  
+  .nav.aberto {
+    display: block;
+  }
+  
+  .nav ul {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .nav-auth {
+    display: none;
+  }
+  
+  .nav.aberto .nav-auth {
+    display: block;
+  }
+  
+  .header-actions {
+    display: none;
+  }
+  
+  .menu-toggle {
+    display: block;
+  }
+  
+  .banner {
+    height: 280px;
+  }
+  
+  .filters-and-grid,
+  .lost-pets-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .filters-sidebar {
+    position: static;
+  }
+  
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .donation-tabs {
+    flex-direction: column;
+  }
+  
+  .admin-nav {
+    flex-wrap: wrap;
+  }
+  
+  .admin-table {
+    font-size: 0.875rem;
+  }
+  
+  .admin-actions {
+    flex-direction: column;
+  }
+  
+  .auth-container {
+    padding: 1rem;
+  }
+  
+  .auth-card {
+    padding: 2rem;
+  }
+  
+  .admin-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+  
+  .section {
+    padding: 1.5rem 0;
+  }
+  
+  .content-card,
+  .admin-form {
+    padding: 1.5rem;
+  }
+  
+  .banner-content {
+    left: 1rem;
+    bottom: 1.5rem;
+  }
+  
+  .filters-wrapper {
+    padding: 1rem;
+  }
+}

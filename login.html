@@ -2,44 +2,209 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Adote um Amigo</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles-bootstrap.css">
+  
+  <style>
+    .auth-page {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--cor-fundo) 0%, rgba(36, 90, 146, 0.1) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    
+    .auth-card {
+      background: var(--cor-fundo-card);
+      border-radius: var(--raio-grande);
+      box-shadow: var(--sombra-hover);
+      padding: 3rem;
+      width: 100%;
+      max-width: 450px;
+      border: 1px solid var(--cor-borda);
+    }
+    
+    .auth-logo {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .auth-logo img {
+      height: 60px;
+      margin-bottom: 1rem;
+    }
+    
+    .auth-logo h3 {
+      color: var(--cor-primaria-escura);
+      margin: 0;
+      font-weight: 600;
+    }
+    
+    .form-floating label {
+      color: var(--cor-texto-suave);
+    }
+    
+    .form-floating .form-control:focus ~ label {
+      color: var(--cor-primaria);
+    }
+    
+    .btn-login {
+      background: var(--cor-primaria);
+      border: none;
+      padding: 0.75rem;
+      font-weight: 500;
+      border-radius: var(--raio);
+      transition: all var(--transicao);
+      width: 100%;
+    }
+    
+    .btn-login:hover {
+      background: var(--cor-primaria-escura);
+      transform: translateY(-1px);
+    }
+    
+    .btn-login:focus {
+      background: var(--cor-primaria-escura);
+      box-shadow: 0 0 0 0.2rem rgba(36, 90, 146, 0.25);
+    }
+    
+    .auth-links {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--cor-borda);
+    }
+    
+    .auth-links a {
+      color: var(--cor-primaria);
+      text-decoration: none;
+      font-weight: 500;
+      margin: 0 0.5rem;
+    }
+    
+    .auth-links a:hover {
+      text-decoration: underline;
+    }
+    
+    .alert-feedback {
+      margin-top: 1rem;
+      border-radius: var(--raio);
+    }
+  </style>
 </head>
 <body>
+  <div class="auth-page">
+    <div class="auth-card">
+      <!-- Logo e Título -->
+      <div class="auth-logo">
+        <img src="assets/anjos-logo.png" alt="Anjos de Resgate" class="rounded-circle">
+        <h3>Anjos de Resgate</h3>
+        <p class="text-muted">Entre para acessar a plataforma</p>
+      </div>
 
-<h2>Login</h2>
+      <!-- Formulário de Login -->
+      <form id="login-form">
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+          <label for="email">Email</label>
+        </div>
+        
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" id="senha" placeholder="Senha" required>
+          <label for="senha">Senha</label>
+        </div>
+        
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary btn-login">
+            <span id="login-text">Entrar</span>
+            <span id="login-loading" class="spinner-border spinner-border-sm d-none" role="status"></span>
+          </button>
+        </div>
+        
+        <!-- Feedback -->
+        <div id="login-feedback" class="alert alert-feedback d-none" role="alert"></div>
+      </form>
 
-<form onsubmit="fazerLogin(event)">
-  <input type="email" id="email" placeholder="Email" required>
-  <input type="password" id="senha" placeholder="Senha" required>
-  <button type="submit">Entrar</button>
-</form>
+      <!-- Links -->
+      <div class="auth-links">
+        <p class="mb-2">
+          Não tem conta? <a href="register.html">Cadastre-se</a>
+        </p>
+        <p class="mb-0">
+          <a href="index.html">Voltar ao início</a>
+        </p>
+      </div>
+    </div>
+  </div>
 
-<script>
-const API_URL = "http://127.0.0.1:5000";
-
-async function fazerLogin(e) {
-  e.preventDefault();
-
-  const email = document.getElementById("email").value;
-  const senha = document.getElementById("senha").value;
-
-  const res = await fetch(API_URL + "/login", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({ email, senha })
-  });
-
-  const data = await res.json();
-
-  if (data.success) {
-    localStorage.setItem("user", JSON.stringify(data.user));
-    alert("Login feito!");
-    window.location.href = "index.html";
-  } else {
-    alert("Erro no login");
-  }
-}
-</script>
-
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script src="script.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('login-form');
+      const feedback = document.getElementById('login-feedback');
+      const loginText = document.getElementById('login-text');
+      const loginLoading = document.getElementById('login-loading');
+      
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const email = document.getElementById('email').value.trim();
+        const senha = document.getElementById('senha').value;
+        
+        // Mostrar loading
+        loginText.textContent = 'Entrando...';
+        loginLoading.classList.remove('d-none');
+        form.querySelector('button[type="submit"]').disabled = true;
+        
+        // Limpar feedback anterior
+        feedback.classList.add('d-none');
+        feedback.className = 'alert alert-feedback d-none';
+        
+        try {
+          const result = await AuthManager.login(email, senha);
+          
+          if (result.success) {
+            // Sucesso
+            feedback.textContent = 'Login realizado! Redirecionando...';
+            feedback.className = 'alert alert-success alert-feedback';
+            feedback.classList.remove('d-none');
+            
+            // Atualizar interface imediatamente
+            updateUIBasedOnUser();
+            
+            // Redirecionar após 1 segundo
+            setTimeout(() => {
+              window.location.href = 'index.html';
+            }, 1000);
+          } else {
+            // Erro
+            feedback.textContent = result.message || 'Email ou senha incorretos';
+            feedback.className = 'alert alert-danger alert-feedback';
+            feedback.classList.remove('d-none');
+          }
+        } catch (error) {
+          console.error('Erro no login:', error);
+          feedback.textContent = 'Erro de conexão. Tente novamente.';
+          feedback.className = 'alert alert-danger alert-feedback';
+          feedback.classList.remove('d-none');
+        } finally {
+          // Restaurar botão
+          loginText.textContent = 'Entrar';
+          loginLoading.classList.add('d-none');
+          form.querySelector('button[type="submit"]').disabled = false;
+        }
+      });
+    });
+  </script>
 </body>
 </html>

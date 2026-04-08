@@ -2,45 +2,300 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Cadastro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro - Adote um Amigo</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles-bootstrap.css">
+  
+  <style>
+    .auth-page {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--cor-fundo) 0%, rgba(36, 90, 146, 0.1) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    
+    .auth-card {
+      background: var(--cor-fundo-card);
+      border-radius: var(--raio-grande);
+      box-shadow: var(--sombra-hover);
+      padding: 3rem;
+      width: 100%;
+      max-width: 500px;
+      border: 1px solid var(--cor-borda);
+    }
+    
+    .auth-logo {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .auth-logo img {
+      height: 60px;
+      margin-bottom: 1rem;
+    }
+    
+    .auth-logo h3 {
+      color: var(--cor-primaria-escura);
+      margin: 0;
+      font-weight: 600;
+    }
+    
+    .form-floating label {
+      color: var(--cor-texto-suave);
+    }
+    
+    .form-floating .form-control:focus ~ label {
+      color: var(--cor-primaria);
+    }
+    
+    .btn-register {
+      background: var(--cor-primaria);
+      border: none;
+      padding: 0.75rem;
+      font-weight: 500;
+      border-radius: var(--raio);
+      transition: all var(--transicao);
+    }
+    
+    .btn-register:hover {
+      background: var(--cor-primaria-escura);
+      transform: translateY(-1px);
+    }
+    
+    .auth-links {
+      text-align: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--cor-borda);
+    }
+    
+    .auth-links a {
+      color: var(--cor-primaria);
+      text-decoration: none;
+      font-weight: 500;
+      margin: 0 0.5rem;
+    }
+    
+    .auth-links a:hover {
+      text-decoration: underline;
+    }
+    
+    .alert-feedback {
+      margin-top: 1rem;
+      border-radius: var(--raio);
+    }
+    
+    .password-strength {
+      margin-top: 0.5rem;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--cor-borda);
+      overflow: hidden;
+    }
+    
+    .password-strength-bar {
+      height: 100%;
+      width: 0%;
+      transition: all 0.3s ease;
+    }
+    
+    .password-strength-bar.weak {
+      width: 33%;
+      background: var(--cor-erro);
+    }
+    
+    .password-strength-bar.medium {
+      width: 66%;
+      background: var(--cor-destaque);
+    }
+    
+    .password-strength-bar.strong {
+      width: 100%;
+      background: var(--cor-sucesso);
+    }
+  </style>
 </head>
 <body>
+  <div class="auth-page">
+    <div class="auth-card">
+      <!-- Logo e Título -->
+      <div class="auth-logo">
+        <img src="assets/anjos-logo.png" alt="Anjos de Resgate" class="rounded-circle">
+        <h3>Anjos de Resgate</h3>
+        <p class="text-muted">Crie sua conta para adotar um amigo</p>
+      </div>
 
-<h2>Cadastro</h2>
+      <!-- Formulário de Cadastro -->
+      <form id="register-form">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="nome" placeholder="Seu nome completo" required>
+          <label for="nome">Nome completo</label>
+        </div>
+        
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+          <label for="email">Email</label>
+        </div>
+        
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" id="senha" placeholder="Senha" required>
+          <label for="senha">Senha</label>
+          <div class="form-text text-muted">Mínimo 6 caracteres</div>
+          <div class="password-strength">
+            <div class="password-strength-bar" id="password-strength"></div>
+          </div>
+        </div>
+        
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" id="confirm-senha" placeholder="Confirmar senha" required>
+          <label for="confirm-senha">Confirmar senha</label>
+        </div>
+        
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary btn-register">
+            <span id="register-text">Cadastrar</span>
+            <span id="register-loading" class="spinner-border spinner-border-sm d-none" role="status"></span>
+          </button>
+        </div>
+        
+        <!-- Feedback -->
+        <div id="register-feedback" class="alert alert-feedback d-none" role="alert"></div>
+      </form>
 
-<form onsubmit="fazerCadastro(event)">
-  <input type="text" id="nome" placeholder="Nome completo" required>
-  <input type="email" id="email" placeholder="Email" required>
-  <input type="password" id="senha" placeholder="Senha" required>
-  <button type="submit">Cadastrar</button>
-</form>
+      <!-- Links -->
+      <div class="auth-links">
+        <p class="mb-2">
+          Já tem conta? <a href="login.html">Faça login</a>
+        </p>
+        <p class="mb-0">
+          <a href="index.html">Voltar ao início</a>
+        </p>
+      </div>
+    </div>
+  </div>
 
-<script>
-const API_URL = "http://127.0.0.1:5000";
-
-async function fazerCadastro(e) {
-  e.preventDefault();
-
-  const nome = document.getElementById("nome").value;
-  const email = document.getElementById("email").value;
-  const senha = document.getElementById("senha").value;
-
-  const res = await fetch(API_URL + "/register", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({ nome, email, senha })
-  });
-
-  const data = await res.json();
-
-  if (data.success) {
-    alert("Cadastro realizado!");
-    window.location.href = "login.html";
-  } else {
-    alert(data.message || "Erro no cadastro");
-  }
-}
-</script>
-
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script src="script.js"></script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('register-form');
+      const feedback = document.getElementById('register-feedback');
+      const registerText = document.getElementById('register-text');
+      const registerLoading = document.getElementById('register-loading');
+      const senhaInput = document.getElementById('senha');
+      const confirmSenhaInput = document.getElementById('confirm-senha');
+      const passwordStrength = document.getElementById('password-strength');
+      
+      // Verificar força da senha
+      senhaInput.addEventListener('input', function() {
+        const senha = this.value;
+        let strength = 0;
+        
+        if (senha.length >= 6) strength++;
+        if (senha.length >= 10) strength++;
+        if (/[a-z]/.test(senha) && /[A-Z]/.test(senha)) strength++;
+        if (/[0-9]/.test(senha)) strength++;
+        if (/[^a-zA-Z0-9]/.test(senha)) strength++;
+        
+        passwordStrength.className = 'password-strength-bar';
+        
+        if (senha.length === 0) {
+          passwordStrength.style.width = '0%';
+        } else if (strength <= 2) {
+          passwordStrength.classList.add('weak');
+        } else if (strength <= 4) {
+          passwordStrength.classList.add('medium');
+        } else {
+          passwordStrength.classList.add('strong');
+        }
+      });
+      
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const nome = document.getElementById('nome').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const senha = document.getElementById('senha').value;
+        const confirmSenha = document.getElementById('confirm-senha').value;
+        
+        // Validações
+        if (!nome || !email || !senha || !confirmSenha) {
+          feedback.textContent = 'Preencha todos os campos';
+          feedback.className = 'alert alert-danger alert-feedback';
+          feedback.classList.remove('d-none');
+          return;
+        }
+        
+        if (!Utils.validateEmail(email)) {
+          feedback.textContent = 'Email inválido';
+          feedback.className = 'alert alert-danger alert-feedback';
+          feedback.classList.remove('d-none');
+          return;
+        }
+        
+        if (senha !== confirmSenha) {
+          feedback.textContent = 'As senhas não coincidem';
+          feedback.className = 'alert alert-danger alert-feedback';
+          feedback.classList.remove('d-none');
+          return;
+        }
+        
+        if (senha.length < 6) {
+          feedback.textContent = 'A senha deve ter pelo menos 6 caracteres';
+          feedback.className = 'alert alert-danger alert-feedback';
+          feedback.classList.remove('d-none');
+          return;
+        }
+        
+        // Mostrar loading
+        registerText.textContent = 'Cadastrando...';
+        registerLoading.classList.remove('d-none');
+        form.querySelector('button[type="submit"]').disabled = true;
+        
+        // Limpar feedback anterior
+        feedback.classList.add('d-none');
+        feedback.className = 'alert alert-feedback d-none';
+        
+        try {
+          const result = await AuthManager.register({ nome, email, senha });
+          
+          if (result.success) {
+            // Sucesso
+            feedback.textContent = 'Cadastro realizado! Redirecionando para o login...';
+            feedback.className = 'alert alert-success alert-feedback';
+            feedback.classList.remove('d-none');
+            
+            setTimeout(() => {
+              window.location.href = 'login.html';
+            }, 2000);
+          } else {
+            // Erro
+            feedback.textContent = result.message || 'Erro no cadastro';
+            feedback.className = 'alert alert-danger alert-feedback';
+            feedback.classList.remove('d-none');
+          }
+        } catch (error) {
+          console.error('Erro no cadastro:', error);
+          feedback.textContent = 'Erro de conexão. Tente novamente.';
+          feedback.className = 'alert alert-danger alert-feedback';
+          feedback.classList.remove('d-none');
+        } finally {
+          // Restaurar botão
+          registerText.textContent = 'Cadastrar';
+          registerLoading.classList.add('d-none');
+          form.querySelector('button[type="submit"]').disabled = false;
+        }
+      });
+    });
+  </script>
 </body>
 </html>

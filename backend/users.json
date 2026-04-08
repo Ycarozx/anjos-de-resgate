@@ -4,5 +4,11 @@
         "email": "admin@admin.com",
         "senha": "123456",
         "isAdmin": true
+    },
+    {
+        "nome": "ycaro alves de sousa",
+        "email": "admin@admin.com",
+        "senha": "123456",
+        "isAdmin": false
     }
 ]
